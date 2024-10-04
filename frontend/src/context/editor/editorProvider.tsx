@@ -19,12 +19,19 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>();
   const [language, setLanguage] = useState<Language>("javascript");
   const [radius, setRadius] = useState("8");
+  const [background, setBackground] = useState<string>("#000000c5");
+  const [gradient, setGradient] = useState<string>("");
 
   const themeExt = EditorView.theme({
     "&.cm-editor": {
       outline: "none",
+      borderRadius: `${radius}px`,
     },
     ".cm-scroller": {
+      borderRadius: `${radius}px`,
+      padding: "20px 20px",
+    },
+    ".cm-line": {
       borderRadius: `${radius}px`,
     },
   });
@@ -43,6 +50,10 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
         extensions,
         radius,
         setRadius,
+        background,
+        setBackground,
+        gradient,
+        setGradient,
       }}
     >
       {children}

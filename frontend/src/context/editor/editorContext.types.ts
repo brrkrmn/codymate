@@ -9,6 +9,10 @@ export type EditorContextValue = null | {
   extensions: Extensions;
   radius: string;
   setRadius: (value: string) => void;
+  background: string;
+  setBackground: (value: string) => void;
+  gradient: string;
+  setGradient: (value: string) => void;
 };
 
 export type Extensions = ReactCodeMirrorProps["extensions"];
