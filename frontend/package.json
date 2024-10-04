@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@uiw/codemirror-themes": "^4.23.4",
+    "@uiw/codemirror-themes-all": "^4.23.4",
     "@uiw/react-codemirror": "^4.23.4",
     "next": "14.2.14",
     "react": "^18",
