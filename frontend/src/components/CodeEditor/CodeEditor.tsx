@@ -4,12 +4,15 @@ import * as themes from "@uiw/codemirror-themes-all";
 import CodeMirror from "@uiw/react-codemirror";
 
 const CodeEditor = () => {
-  const { theme } = useEditorContext();
+  const { theme, extensions } = useEditorContext();
 
   return (
     <div className="w-full h-full">
-      {/* @ts-ignore */}
-      <CodeMirror theme={themes[theme as keyof typeof themes]} />
+      <CodeMirror
+        // @ts-ignore
+        theme={themes[theme as keyof typeof themes]}
+        extensions={extensions}
+      />
     </div>
   );
 };

@@ -1,7 +1,8 @@
 "use client";
-import { ReactCodeMirrorProps } from "@uiw/react-codemirror";
-import { createContext, useContext, useState } from "react";
-import { EditorContextValue } from "./editorContext.types";
+import { Extension } from "@codemirror/state";
+import { langs } from "@uiw/codemirror-extensions-langs";
+import { createContext, useContext, useMemo, useState } from "react";
+import { EditorContextValue, Language, Theme } from "./editorContext.types";
 
 export const EditorContext = createContext<EditorContextValue>(null);
 
@@ -14,13 +15,21 @@ export const useEditorContext = () => {
 };
 
 const EditorProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<ReactCodeMirrorProps["theme"]>();
+  const [theme, setTheme] = useState<Theme>();
+  const [language, setLanguage] = useState<Language>("javascript");
+
+  const extensions: Extension[] = useMemo(() => {
+    return [langs[language]()];
+  }, [language]);
 
   return (
     <EditorContext.Provider
       value={{
         theme,
         setTheme,
+        language,
+        setLanguage,
+        extensions,
       }}
     >
       {children}
