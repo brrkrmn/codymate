@@ -1,6 +1,7 @@
 "use client";
 import { Extension } from "@codemirror/state";
 import { langs } from "@uiw/codemirror-extensions-langs";
+import { EditorView } from "@uiw/react-codemirror";
 import { createContext, useContext, useMemo, useState } from "react";
 import { EditorContextValue, Language, Theme } from "./editorContext.types";
 
@@ -17,10 +18,20 @@ export const useEditorContext = () => {
 const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>();
   const [language, setLanguage] = useState<Language>("javascript");
+  const [radius, setRadius] = useState("8");
+
+  const themeExt = EditorView.theme({
+    "&.cm-editor": {
+      outline: "none",
+    },
+    ".cm-scroller": {
+      borderRadius: `${radius}px`,
+    },
+  });
 
   const extensions: Extension[] = useMemo(() => {
-    return [langs[language]()];
-  }, [language]);
+    return [langs[language](), themeExt];
+  }, [language, radius]);
 
   return (
     <EditorContext.Provider
@@ -30,6 +41,8 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
         language,
         setLanguage,
         extensions,
+        radius,
+        setRadius,
       }}
     >
       {children}

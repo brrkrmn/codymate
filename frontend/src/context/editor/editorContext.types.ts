@@ -7,6 +7,8 @@ export type EditorContextValue = null | {
   language: Language;
   setLanguage: (value: Language) => void;
   extensions: Extensions;
+  radius: string;
+  setRadius: (value: string) => void;
 };
 
 export type Extensions = ReactCodeMirrorProps["extensions"];
