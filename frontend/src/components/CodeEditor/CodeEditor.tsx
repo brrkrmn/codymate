@@ -1,44 +1,21 @@
 import { Theme } from "@/context/editor/editorContext.types";
 import { useEditorContext } from "@/context/editor/editorProvider";
-import getTransactionFromChange, {
-  Transaction,
-} from "@/utils/getTransactionFromChange";
-import { EditorView, ViewUpdate } from "@codemirror/view";
+import { EditorView } from "@codemirror/view";
 import * as themes from "@uiw/codemirror-themes-all";
 import CodeMirror from "@uiw/react-codemirror";
-import { useCallback, useRef, useState } from "react";
-
-export type Change = {
-  fromA: number;
-  toA: number;
-  fromB: number;
-  toB: number;
-  insert: string;
-};
+import { useRef } from "react";
 
 const CodeEditor = () => {
   const editorRef = useRef<EditorView | null>(null);
-  const { theme, extensions, background, gradient, code, setCode } =
-    useEditorContext();
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  const onChange = useCallback((val: string, update: ViewUpdate) => {
-    setCode(val);
-
-    const changedRanges = (update as any).changedRanges[0];
-    const change: Change = {
-      fromA: changedRanges.fromA,
-      toA: changedRanges.toA,
-      fromB: changedRanges.fromB,
-      toB: changedRanges.toB,
-      insert: (update.changes as any).inserted.join(""),
-    };
-
-    setTransactions((prevTransactions) => [
-      ...prevTransactions,
-      getTransactionFromChange(change),
-    ]);
-  }, []);
+  const {
+    theme,
+    extensions,
+    background,
+    gradient,
+    code,
+    transactions,
+    onChange,
+  } = useEditorContext();
 
   const onClick = () => {
     transactions.forEach((transaction, index) => {
@@ -60,10 +37,10 @@ const CodeEditor = () => {
       style={{ backgroundColor: background, backgroundImage: gradient }}
     >
       <CodeMirror
-        theme={themes[theme as keyof typeof themes] as Theme}
-        onChange={onChange}
         value={code}
+        onChange={onChange}
         onCreateEditor={(editorView) => (editorRef.current = editorView)}
+        theme={themes[theme as keyof typeof themes] as Theme}
         extensions={extensions}
         basicSetup={{
           lineNumbers: false,

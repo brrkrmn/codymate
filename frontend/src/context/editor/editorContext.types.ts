@@ -1,5 +1,5 @@
 import { langs } from "@uiw/codemirror-extensions-langs";
-import { ReactCodeMirrorProps } from "@uiw/react-codemirror";
+import { ReactCodeMirrorProps, ViewUpdate } from "@uiw/react-codemirror";
 
 export type EditorContextValue = null | {
   theme: Theme;
@@ -13,10 +13,25 @@ export type EditorContextValue = null | {
   setBackground: (value: string) => void;
   gradient: string;
   setGradient: (value: string) => void;
+  transactions: Transaction[];
   code: string;
-  setCode: (value: string) => void;
+  onChange: (value: string, update: ViewUpdate) => void;
 };
 
 export type Extensions = ReactCodeMirrorProps["extensions"];
 export type Theme = ReactCodeMirrorProps["theme"];
 export type Language = keyof typeof langs;
+
+export type Change = {
+  fromA: number;
+  toA: number;
+  fromB: number;
+  toB: number;
+  insert: string;
+};
+
+export type Transaction = {
+  from: number;
+  to?: number;
+  insert: string;
+};

@@ -1,10 +1,4 @@
-import { Change } from "@/components/CodeEditor";
-
-export type Transaction = {
-  from: number;
-  to?: number;
-  insert: string;
-};
+import { Change, Transaction } from "@/context/editor/editorContext.types";
 
 const getTransactionFromChange = (change: Change): Transaction => {
   if (change.insert === "") {

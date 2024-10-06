@@ -1,9 +1,22 @@
 "use client";
+import getTransactionFromChange from "@/utils/getTransactionFromChange";
 import { Extension } from "@codemirror/state";
 import { langs } from "@uiw/codemirror-extensions-langs";
-import { EditorView } from "@uiw/react-codemirror";
-import { createContext, useContext, useMemo, useState } from "react";
-import { EditorContextValue, Language, Theme } from "./editorContext.types";
+import { EditorView, ViewUpdate } from "@uiw/react-codemirror";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+import {
+  Change,
+  EditorContextValue,
+  Language,
+  Theme,
+  Transaction,
+} from "./editorContext.types";
 
 export const EditorContext = createContext<EditorContextValue>(null);
 
@@ -22,6 +35,25 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [background, setBackground] = useState<string>("#000000c5");
   const [gradient, setGradient] = useState<string>("");
   const [code, setCode] = useState("");
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  const onChange = useCallback((val: string, update: ViewUpdate) => {
+    setCode(val);
+
+    const changedRanges = (update as any).changedRanges[0];
+    const change: Change = {
+      fromA: changedRanges.fromA,
+      toA: changedRanges.toA,
+      fromB: changedRanges.fromB,
+      toB: changedRanges.toB,
+      insert: (update.changes as any).inserted.join(""),
+    };
+
+    setTransactions((prevTransactions) => [
+      ...prevTransactions,
+      getTransactionFromChange(change),
+    ]);
+  }, []);
 
   const themeExt = EditorView.theme({
     "&.cm-editor": {
@@ -55,8 +87,9 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
         setBackground,
         gradient,
         setGradient,
+        transactions,
         code,
-        setCode,
+        onChange,
       }}
     >
       {children}
