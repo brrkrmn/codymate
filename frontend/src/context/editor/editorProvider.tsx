@@ -21,6 +21,7 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [radius, setRadius] = useState("8");
   const [background, setBackground] = useState<string>("#000000c5");
   const [gradient, setGradient] = useState<string>("");
+  const [code, setCode] = useState("");
 
   const themeExt = EditorView.theme({
     "&.cm-editor": {
@@ -54,6 +55,8 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
         setBackground,
         gradient,
         setGradient,
+        code,
+        setCode,
       }}
     >
       {children}

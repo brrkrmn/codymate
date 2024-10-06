@@ -13,6 +13,8 @@ export type EditorContextValue = null | {
   setBackground: (value: string) => void;
   gradient: string;
   setGradient: (value: string) => void;
+  code: string;
+  setCode: (value: string) => void;
 };
 
 export type Extensions = ReactCodeMirrorProps["extensions"];
