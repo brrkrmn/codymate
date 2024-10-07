@@ -1,7 +1,7 @@
 "use client";
 
-import CodeEditor from "@/components/CodeEditor/CodeEditor";
 import ColorSelect from "@/components/ColorSelect/ColorSelect";
+import CreateScene from "@/components/CreateScene/CreateScene";
 import LangSelect from "@/components/LangSelect/LangSelect";
 import RadiusSelect from "@/components/RadiusSelect/RadiusSelect";
 import ThemeSelect from "@/components/ThemeSelect/ThemeSelect";
@@ -15,7 +15,7 @@ export default function Home() {
         <RadiusSelect />
         <ColorSelect />
       </div>
-      <CodeEditor />
+      <CreateScene />
     </div>
   );
 }

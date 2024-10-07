@@ -14,6 +14,7 @@ import {
   Change,
   EditorContextValue,
   Language,
+  Scene,
   Theme,
   Transaction,
 } from "./editorContext.types";
@@ -36,6 +37,7 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [gradient, setGradient] = useState<string>("");
   const [code, setCode] = useState("");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [scenes, setScenes] = useState<Scene[]>([]);
 
   const onChange = useCallback((val: string, update: ViewUpdate) => {
     setCode(val);
@@ -90,6 +92,8 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
         transactions,
         code,
         onChange,
+        scenes,
+        setScenes,
       }}
     >
       {children}

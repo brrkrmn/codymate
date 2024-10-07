@@ -16,6 +16,8 @@ export type EditorContextValue = null | {
   transactions: Transaction[];
   code: string;
   onChange: (value: string, update: ViewUpdate) => void;
+  scenes: Scene[];
+  setScenes: (value: Scene[]) => void;
 };
 
 export type Extensions = ReactCodeMirrorProps["extensions"];
@@ -34,4 +36,9 @@ export type Transaction = {
   from: number;
   to?: number;
   insert: string;
+};
+
+export type Scene = {
+  number: number;
+  content: string;
 };
