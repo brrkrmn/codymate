@@ -22,6 +22,7 @@ export type Change = {
 
 export type Transaction = {
   from: number;
+  to?: number;
   insert: string;
 };
 

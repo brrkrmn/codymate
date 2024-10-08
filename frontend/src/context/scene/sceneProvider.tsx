@@ -76,6 +76,7 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         editorView.dispatch({
           changes: {
             from: transaction.from,
+            to: transaction.to,
             insert: transaction.insert,
           },
         });

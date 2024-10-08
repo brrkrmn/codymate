@@ -2,6 +2,8 @@ import { Transaction } from "@/context/scene/sceneProvider.types";
 
 const getDiff = (oldContent: string, newContent: string): Transaction[] => {
   const transaction = [];
+  const deleteOperations = [];
+
   let i = 0;
   let j = 0;
 
@@ -13,8 +15,9 @@ const getDiff = (oldContent: string, newContent: string): Transaction[] => {
       });
       j++;
     } else if (j === newContent.length) {
-      transaction.push({
+      deleteOperations.push({
         from: i,
+        to: i + 1,
         insert: "",
       });
       i++;
@@ -27,13 +30,17 @@ const getDiff = (oldContent: string, newContent: string): Transaction[] => {
         insert: newContent[j],
       });
       j++;
-      transaction.push({
+      deleteOperations.push({
         from: i,
+        to: i + 1,
         insert: "",
       });
       i++;
     }
   }
+
+  transaction.push(...deleteOperations.reverse());
+
   return transaction;
 };
 
