@@ -1,7 +1,9 @@
 "use client";
 
+import getDiff from "@/utils/getDiff";
+import { EditorView } from "@uiw/react-codemirror";
 import { createContext, useContext, useState } from "react";
-import { Scene, SceneContextValue } from "./sceneProvider.types";
+import { Scene, SceneContextValue, Transaction } from "./sceneProvider.types";
 
 export const SceneContext = createContext<SceneContextValue>(null);
 
@@ -48,9 +50,58 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  const getTransactions = () => {
+    setScenes((prevScenes) => {
+      const updatedScenes = [...prevScenes];
+
+      for (let i = 0; i < updatedScenes.length - 1; i++) {
+        const oldContent = updatedScenes[i].content;
+        const newContent = updatedScenes[i + 1].content;
+
+        const transactions = getDiff(oldContent, newContent);
+
+        updatedScenes[i + 1] = {
+          ...updatedScenes[i + 1],
+          content: newContent,
+          transactions,
+        };
+      }
+
+      return updatedScenes;
+    });
+  };
+
+  const dispatchTransactionsToEditor = (editorView: EditorView) => {
+    getTransactions();
+
+    const transactions: Transaction[] = [];
+    scenes.map((scene) => {
+      if (scene.transactions && scene.transactions.length > 0) {
+        scene.transactions.map((transaction) => transactions.push(transaction));
+      }
+    });
+
+    transactions.forEach((transaction, index) => {
+      setTimeout(() => {
+        editorView.dispatch({
+          changes: {
+            from: transaction.from,
+            insert: transaction.insert,
+          },
+        });
+      }, index * 100);
+    });
+  };
+
   return (
     <SceneContext.Provider
-      value={{ scenes, createScene, editScene, deleteScene }}
+      value={{
+        scenes,
+        createScene,
+        editScene,
+        deleteScene,
+        dispatchTransactionsToEditor,
+      }}
     >
       {children}
     </SceneContext.Provider>

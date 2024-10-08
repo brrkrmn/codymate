@@ -11,7 +11,8 @@ const CodeEditor = ({ scene }: { scene: Scene }) => {
   const [value, setValue] = useState(scene.content as string | "");
   const editorRef = useRef<EditorView | null>(null);
   const { theme, extensions, background, gradient } = useEditorContext();
-  const { editScene, deleteScene, scenes } = useSceneContext();
+  const { editScene, deleteScene, scenes, dispatchTransactionsToEditor } =
+    useSceneContext();
 
   useEffect(() => {
     setValue(scene.content);
@@ -28,6 +29,13 @@ const CodeEditor = ({ scene }: { scene: Scene }) => {
     >
       <button onClick={() => deleteScene(scene.number)} className="text-white">
         delete scene
+      </button>
+      <button
+        onClick={() =>
+          dispatchTransactionsToEditor(editorRef.current as EditorView)
+        }
+      >
+        animate
       </button>
       <CodeMirror
         value={value}
