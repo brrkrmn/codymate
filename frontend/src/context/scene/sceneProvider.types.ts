@@ -1,4 +1,9 @@
-export type SceneContextValue = null | {};
+export type SceneContextValue = null | {
+  scenes: Scene[];
+  createScene: (initialValue?: string) => void;
+  editScene: (updatedScene: Scene) => void;
+  deleteScenes: (...sceneNumbers: number[]) => void;
+};
 
 export type Change = {
   fromA: number;
