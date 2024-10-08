@@ -1,17 +1,24 @@
 import { useEditorContext } from "@/context/editor/editorProvider";
 import { Theme } from "@/context/editor/editorProvider.types";
+import { useSceneContext } from "@/context/scene";
+import { Scene } from "@/context/scene/sceneProvider.types";
 import { EditorView, ViewUpdate } from "@codemirror/view";
 import * as themes from "@uiw/codemirror-themes-all";
 import CodeMirror from "@uiw/react-codemirror";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-const CodeEditor = () => {
-  const [value, setValue] = useState("");
+const CodeEditor = ({ scene }: { scene: Scene }) => {
+  const [value, setValue] = useState(scene.content as string | "");
   const editorRef = useRef<EditorView | null>(null);
   const { theme, extensions, background, gradient } = useEditorContext();
+  const { editScene, deleteScene, scenes } = useSceneContext();
+
+  useEffect(() => {
+    setValue(scene.content);
+  }, [scenes]);
 
   const onChange = useCallback((val: string, update: ViewUpdate) => {
-    setValue(val);
+    editScene({ ...scene, content: val });
   }, []);
 
   return (
@@ -19,6 +26,9 @@ const CodeEditor = () => {
       className={`w-full h-full p-10 rounded-lg`}
       style={{ backgroundColor: background, backgroundImage: gradient }}
     >
+      <button onClick={() => deleteScene(scene.number)} className="text-white">
+        delete scene
+      </button>
       <CodeMirror
         value={value}
         onChange={onChange}

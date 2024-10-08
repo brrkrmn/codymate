@@ -21,10 +21,10 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
     },
   ]);
 
-  const createScene = (initialValue?: string) => {
+  const createScene = (initialValue = "") => {
     setScenes((prevScenes) => [
       ...prevScenes,
-      { number: scenes.length + 1, content: initialValue || "" },
+      { number: scenes.length, content: initialValue },
     ]);
   };
 
@@ -36,18 +36,21 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const deleteScenes = (...sceneNumbers: number[]) => {
-    setScenes((prevScenes) => {
-      if (sceneNumbers.length === 0) {
-        return [];
-      }
-      return prevScenes.filter((scene) => !sceneNumbers.includes(scene.number));
-    });
+  const deleteScene = (sceneNumber: number) => {
+    setScenes((prevScenes) =>
+      prevScenes
+        .filter((scene) => scene.number !== sceneNumber)
+        .map((scene) =>
+          scene.number < sceneNumber
+            ? scene
+            : { ...scene, number: scene.number - 1 },
+        ),
+    );
   };
 
   return (
     <SceneContext.Provider
-      value={{ scenes, createScene, editScene, deleteScenes }}
+      value={{ scenes, createScene, editScene, deleteScene }}
     >
       {children}
     </SceneContext.Provider>
