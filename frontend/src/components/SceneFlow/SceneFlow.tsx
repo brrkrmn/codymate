@@ -1,5 +1,6 @@
 import { useSceneContext } from "@/context/scene";
-import CodeEditor from "../CodeEditor/CodeEditor";
+import Preview from "./components/Preview/Preview";
+import Scene from "./components/Scene/Scene";
 
 const SceneFlow = () => {
   const { scenes, createScene } = useSceneContext();
@@ -9,11 +10,17 @@ const SceneFlow = () => {
   };
 
   return (
-    <div>
-      {scenes.map((scene) => (
-        <CodeEditor scene={scene} />
-      ))}
-      <button onClick={onClick}>Create</button>
+    <div className="flex flex-col items-center justify-center w-full">
+      <div className="flex gap-10">
+        <div className="flex gap-10 overflow-x-scroll w-[800px]">
+          {scenes.map((scene) => (
+            <Scene scene={scene} key={scene.number} />
+          ))}
+        </div>
+        <button onClick={onClick}>Create Scene</button>
+      </div>
+
+      <Preview />
     </div>
   );
 };

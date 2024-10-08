@@ -16,6 +16,7 @@ export const useSceneContext = () => {
 };
 
 const SceneProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isPreview, setIsPreview] = useState(false);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [scenes, setScenes] = useState<Scene[]>([
     {
@@ -79,6 +80,7 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         });
       }, index * 100);
     });
+    setIsPreview(false);
   };
 
   return (
@@ -89,6 +91,8 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         editScene,
         deleteScene,
         dispatchTransactions,
+        isPreview,
+        setIsPreview,
       }}
     >
       {children}
