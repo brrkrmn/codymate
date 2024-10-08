@@ -1,4 +1,4 @@
-import { Change, Transaction } from "@/context/editor/editorContext.types";
+import { Change, Transaction } from "@/context/scene/sceneProvider.types";
 
 const getTransactionFromChange = (change: Change): Transaction => {
   if (change.insert === "") {

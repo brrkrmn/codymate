@@ -1,4 +1,5 @@
 import EditorProvider from "@/context/editor/editorProvider";
+import SceneProvider from "@/context/scene/sceneProvider";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        <EditorProvider>{children}</EditorProvider>
+        <EditorProvider>
+          <SceneProvider>{children}</SceneProvider>
+        </EditorProvider>
       </body>
     </html>
   );

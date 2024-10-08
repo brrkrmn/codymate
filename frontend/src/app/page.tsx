@@ -8,8 +8,8 @@ import ThemeSelect from "@/components/ThemeSelect/ThemeSelect";
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center gap-4 min-h-screen p-20">
-      <div className="flex flex-col items-center gap-10">
+    <div className="flex flex-col items-center justify-start gap-4 min-h-screen p-20">
+      <div className="flex items-center justify-center w-full gap-10">
         <ThemeSelect />
         <LangSelect />
         <RadiusSelect />

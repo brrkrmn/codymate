@@ -1,35 +1,18 @@
-import { Theme } from "@/context/editor/editorContext.types";
 import { useEditorContext } from "@/context/editor/editorProvider";
-import { EditorView } from "@codemirror/view";
+import { Theme } from "@/context/editor/editorProvider.types";
+import { EditorView, ViewUpdate } from "@codemirror/view";
 import * as themes from "@uiw/codemirror-themes-all";
 import CodeMirror from "@uiw/react-codemirror";
-import { useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 
 const CodeEditor = () => {
+  const [value, setValue] = useState("");
   const editorRef = useRef<EditorView | null>(null);
-  const {
-    theme,
-    extensions,
-    background,
-    gradient,
-    code,
-    transactions,
-    onChange,
-  } = useEditorContext();
+  const { theme, extensions, background, gradient } = useEditorContext();
 
-  const onClick = () => {
-    transactions.forEach((transaction, index) => {
-      setTimeout(() => {
-        editorRef.current?.dispatch({
-          changes: {
-            from: transaction.from,
-            to: transaction.to,
-            insert: transaction.insert,
-          },
-        });
-      }, index * 100);
-    });
-  };
+  const onChange = useCallback((val: string, update: ViewUpdate) => {
+    setValue(val);
+  }, []);
 
   return (
     <div
@@ -37,7 +20,7 @@ const CodeEditor = () => {
       style={{ backgroundColor: background, backgroundImage: gradient }}
     >
       <CodeMirror
-        value={code}
+        value={value}
         onChange={onChange}
         onCreateEditor={(editorView) => (editorRef.current = editorView)}
         theme={themes[theme as keyof typeof themes] as Theme}
@@ -47,7 +30,6 @@ const CodeEditor = () => {
           foldGutter: false,
         }}
       />
-      <button onClick={onClick}>Click</button>
     </div>
   );
 };
