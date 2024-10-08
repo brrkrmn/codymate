@@ -16,6 +16,7 @@ export const useSceneContext = () => {
 };
 
 const SceneProvider = ({ children }: { children: React.ReactNode }) => {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [scenes, setScenes] = useState<Scene[]>([
     {
       number: 0,
@@ -50,37 +51,24 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const getTransactions = () => {
-    setScenes((prevScenes) => {
-      const updatedScenes = [...prevScenes];
+  const createTransactions = () => {
+    const newTransactions = [];
 
-      for (let i = 0; i < updatedScenes.length - 1; i++) {
-        const oldContent = updatedScenes[i].content;
-        const newContent = updatedScenes[i + 1].content;
+    for (let i = 0; i < scenes.length - 1; i++) {
+      const oldScene = scenes[i].content;
+      const newScene = scenes[i + 1].content;
 
-        const transactions = getDiff(oldContent, newContent);
+      const transactions = getDiff(oldScene, newScene);
 
-        updatedScenes[i + 1] = {
-          ...updatedScenes[i + 1],
-          content: newContent,
-          transactions,
-        };
+      if (transactions.length > 0) {
+        newTransactions.push(...transactions);
       }
-
-      return updatedScenes;
-    });
+    }
+    setTransactions(newTransactions);
   };
 
-  const dispatchTransactionsToEditor = (editorView: EditorView) => {
-    getTransactions();
-
-    const transactions: Transaction[] = [];
-    scenes.map((scene) => {
-      if (scene.transactions && scene.transactions.length > 0) {
-        scene.transactions.map((transaction) => transactions.push(transaction));
-      }
-    });
-
+  const dispatchTransactions = (editorView: EditorView) => {
+    createTransactions();
     transactions.forEach((transaction, index) => {
       setTimeout(() => {
         editorView.dispatch({
@@ -100,7 +88,7 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         createScene,
         editScene,
         deleteScene,
-        dispatchTransactionsToEditor,
+        dispatchTransactions,
       }}
     >
       {children}

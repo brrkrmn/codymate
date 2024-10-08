@@ -5,7 +5,7 @@ export type SceneContextValue = null | {
   createScene: (initialValue?: string) => void;
   editScene: (updatedScene: Scene) => void;
   deleteScene: (sceneNumber: number) => void;
-  dispatchTransactionsToEditor: (editorView: EditorView) => void;
+  dispatchTransactions: (editorView: EditorView) => void;
 };
 
 export type Change = {
