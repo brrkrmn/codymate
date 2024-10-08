@@ -16,8 +16,6 @@ export const useSceneContext = () => {
 };
 
 const SceneProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isPreview, setIsPreview] = useState(false);
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [scenes, setScenes] = useState<Scene[]>([
     {
       number: 0,
@@ -65,11 +63,14 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         newTransactions.push(...transactions);
       }
     }
-    setTransactions(newTransactions);
+
+    return newTransactions;
   };
 
-  const dispatchTransactions = (editorView: EditorView) => {
-    createTransactions();
+  const dispatchTransactions = (
+    editorView: EditorView,
+    transactions: Transaction[],
+  ) => {
     transactions.forEach((transaction, index) => {
       setTimeout(() => {
         editorView.dispatch({
@@ -80,7 +81,6 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         });
       }, index * 100);
     });
-    setIsPreview(false);
   };
 
   return (
@@ -91,8 +91,7 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         editScene,
         deleteScene,
         dispatchTransactions,
-        isPreview,
-        setIsPreview,
+        createTransactions,
       }}
     >
       {children}

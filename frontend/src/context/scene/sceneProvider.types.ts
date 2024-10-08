@@ -2,12 +2,14 @@ import { EditorView } from "@uiw/react-codemirror";
 
 export type SceneContextValue = null | {
   scenes: Scene[];
-  isPreview: boolean;
-  setIsPreview: (value: boolean) => void;
   createScene: (initialValue?: string) => void;
   editScene: (updatedScene: Scene) => void;
   deleteScene: (sceneNumber: number) => void;
-  dispatchTransactions: (editorView: EditorView) => void;
+  dispatchTransactions: (
+    editorView: EditorView,
+    transactions: Transaction[],
+  ) => void;
+  createTransactions: () => Transaction[];
 };
 
 export type Change = {
