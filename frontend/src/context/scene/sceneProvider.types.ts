@@ -12,6 +12,8 @@ export type SceneContextValue = null | {
   createTransactions: () => Transaction[];
   isPlaying: boolean;
   setIsPlaying: (value: boolean) => void;
+  resetEditor: (editorView: EditorView) => void;
+  initializeEditor: (editorView: EditorView) => void;
 };
 
 export type Change = {

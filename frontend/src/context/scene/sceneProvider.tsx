@@ -85,6 +85,22 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
+  const initializeEditor = (editorView: EditorView) => {
+    editorView.dispatch({
+      changes: { from: 0, insert: scenes[0].content },
+    });
+  };
+
+  const resetEditor = (editorView: EditorView) => {
+    editorView.dispatch({
+      changes: {
+        from: 0,
+        to: editorView.state.doc.toString().length,
+        insert: "",
+      },
+    });
+  };
+
   return (
     <SceneContext.Provider
       value={{
@@ -96,6 +112,8 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         createTransactions,
         isPlaying,
         setIsPlaying,
+        resetEditor,
+        initializeEditor,
       }}
     >
       {children}

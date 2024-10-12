@@ -7,8 +7,14 @@ import { useEffect, useRef, useState } from "react";
 
 const Preview = () => {
   const editorRef = useRef<EditorView | null>(null);
-  const { dispatchTransactions, scenes, createTransactions, isPlaying } =
-    useSceneContext();
+  const {
+    dispatchTransactions,
+    scenes,
+    createTransactions,
+    isPlaying,
+    resetEditor,
+    initializeEditor,
+  } = useSceneContext();
   const { theme, extensions, background, gradient } = useEditorContext();
   const [value, setValue] = useState("");
 
@@ -18,20 +24,12 @@ const Preview = () => {
     }
 
     if (isPlaying) {
-      editorRef.current.dispatch({
-        changes: { from: 0, insert: scenes[0].content },
-      });
+      initializeEditor(editorRef.current);
 
       const transactions = createTransactions();
       dispatchTransactions(editorRef.current, transactions);
     } else {
-      editorRef.current.dispatch({
-        changes: {
-          from: 0,
-          to: editorRef.current.state.doc.toString().length,
-          insert: "",
-        },
-      });
+      resetEditor(editorRef.current);
     }
   }, [isPlaying]);
 
