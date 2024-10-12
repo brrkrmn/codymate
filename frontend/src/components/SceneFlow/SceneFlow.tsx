@@ -1,10 +1,11 @@
 import { useSceneContext } from "@/context/scene";
+import { useState } from "react";
 import Preview from "./components/Preview/Preview";
 import Scene from "./components/Scene/Scene";
 
 const SceneFlow = () => {
   const { scenes, createScene } = useSceneContext();
-
+  const [isPreview, setIsPreview] = useState(false);
   const onClick = () => {
     createScene(scenes[scenes.length - 1].content);
   };
@@ -19,8 +20,8 @@ const SceneFlow = () => {
         </div>
         <button onClick={onClick}>Create Scene</button>
       </div>
-
-      <Preview />
+      <button onClick={() => setIsPreview(true)}>preview</button>
+      {isPreview && <Preview />}
     </div>
   );
 };

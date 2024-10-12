@@ -12,14 +12,19 @@ const Preview = () => {
   const { theme, extensions, background, gradient } = useEditorContext();
   const [value, setValue] = useState("");
 
-  const onClick = () => {
-    setValue(scenes[0].content);
-    const transactions = createTransactions();
-    dispatchTransactions(editorRef.current as EditorView, transactions);
-  };
-
   const onChange = (val: string) => {
     setValue(val);
+  };
+
+  const onCreate = (editorView: EditorView) => {
+    editorRef.current = editorView;
+
+    editorRef.current.dispatch({
+      changes: { from: 0, insert: scenes[0].content },
+    });
+
+    const transactions = createTransactions();
+    dispatchTransactions(editorRef.current, transactions);
   };
 
   return (
@@ -27,13 +32,10 @@ const Preview = () => {
       className={`w-full h-full p-10`}
       style={{ backgroundColor: background, backgroundImage: gradient }}
     >
-      <button onClick={onClick} className="text-white">
-        PLAY
-      </button>
       <CodeMirror
         value={value}
         onChange={onChange}
-        onCreateEditor={(editorView) => (editorRef.current = editorView)}
+        onCreateEditor={onCreate}
         theme={themes[theme as keyof typeof themes] as Theme}
         extensions={extensions}
         editable={false}
