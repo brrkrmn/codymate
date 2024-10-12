@@ -10,6 +10,8 @@ export type SceneContextValue = null | {
     transactions: Transaction[],
   ) => void;
   createTransactions: () => Transaction[];
+  isPlaying: boolean;
+  setIsPlaying: (value: boolean) => void;
 };
 
 export type Change = {

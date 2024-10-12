@@ -22,6 +22,7 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
       content: "",
     },
   ]);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const createScene = (initialValue = "") => {
     setScenes((prevScenes) => [
@@ -93,6 +94,8 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         deleteScene,
         dispatchTransactions,
         createTransactions,
+        isPlaying,
+        setIsPlaying,
       }}
     >
       {children}

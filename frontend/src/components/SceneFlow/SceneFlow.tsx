@@ -1,13 +1,41 @@
 import { useSceneContext } from "@/context/scene";
-import { Player } from "@remotion/player";
-import { useState } from "react";
+import { Player, PlayerRef } from "@remotion/player";
+import { useEffect, useRef } from "react";
 import Preview from "./components/Preview/Preview";
 import Scene from "./components/Scene/Scene";
 
 const SceneFlow = () => {
-  const { scenes, createScene } = useSceneContext();
-  const [isPreview, setIsPreview] = useState(false);
-  const onClick = () => {
+  const playerRef = useRef<PlayerRef>(null);
+  const { scenes, createScene, setIsPlaying } = useSceneContext();
+
+  useEffect(() => {
+    if (!playerRef.current) {
+      return;
+    }
+
+    playerRef.current.addEventListener("play", onPlay);
+    playerRef.current.addEventListener("ended", onEnd);
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.removeEventListener("play", onPlay);
+        playerRef.current.removeEventListener("ended", onEnd);
+      }
+    };
+  }, []);
+
+  const onPlay = () => {
+    if (playerRef.current) {
+      setIsPlaying(true);
+      playerRef.current.play();
+    }
+  };
+
+  const onEnd = () => {
+    setIsPlaying(false);
+  };
+
+  const onCreateScene = () => {
     createScene(scenes[scenes.length - 1].content);
   };
 
@@ -19,27 +47,25 @@ const SceneFlow = () => {
             <Scene scene={scene} key={scene.number} />
           ))}
         </div>
-        <button onClick={onClick}>Create Scene</button>
+        <button onClick={onCreateScene}>Create Scene</button>
       </div>
-      <button onClick={() => setIsPreview(true)}>preview</button>
-      {isPreview && (
-        <Player
-          component={Preview}
-          durationInFrames={120}
-          compositionWidth={1920}
-          compositionHeight={1080}
-          fps={30}
-          style={{
-            width: 1280,
-            height: 720,
-          }}
-          controls
-          showVolumeControls={false}
-          allowFullscreen={false}
-          clickToPlay={true}
-          autoPlay
-        />
-      )}
+      <button onClick={onPlay}>preview</button>
+      <Player
+        ref={playerRef}
+        component={Preview}
+        durationInFrames={60}
+        compositionWidth={1920}
+        compositionHeight={1080}
+        fps={30}
+        style={{
+          width: 1280,
+          height: 720,
+        }}
+        controls
+        showVolumeControls={false}
+        allowFullscreen={false}
+        clickToPlay={true}
+      />
     </div>
   );
 };

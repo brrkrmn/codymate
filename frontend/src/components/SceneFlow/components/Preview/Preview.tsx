@@ -3,29 +3,37 @@ import { Theme } from "@/context/editor/editorProvider.types";
 import { useSceneContext } from "@/context/scene";
 import * as themes from "@uiw/codemirror-themes-all";
 import CodeMirror, { EditorView } from "@uiw/react-codemirror";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Preview = () => {
   const editorRef = useRef<EditorView | null>(null);
-  const { dispatchTransactions, scenes, createTransactions } =
+  const { dispatchTransactions, scenes, createTransactions, isPlaying } =
     useSceneContext();
   const { theme, extensions, background, gradient } = useEditorContext();
   const [value, setValue] = useState("");
 
-  const onChange = (val: string) => {
-    setValue(val);
-  };
+  useEffect(() => {
+    if (!editorRef.current) {
+      return;
+    }
 
-  const onCreate = (editorView: EditorView) => {
-    editorRef.current = editorView;
+    if (isPlaying) {
+      editorRef.current.dispatch({
+        changes: { from: 0, insert: scenes[0].content },
+      });
 
-    editorRef.current.dispatch({
-      changes: { from: 0, insert: scenes[0].content },
-    });
-
-    const transactions = createTransactions();
-    dispatchTransactions(editorRef.current, transactions);
-  };
+      const transactions = createTransactions();
+      dispatchTransactions(editorRef.current, transactions);
+    } else {
+      editorRef.current.dispatch({
+        changes: {
+          from: 0,
+          to: editorRef.current.state.doc.toString().length,
+          insert: "",
+        },
+      });
+    }
+  }, [isPlaying]);
 
   return (
     <div
@@ -34,8 +42,10 @@ const Preview = () => {
     >
       <CodeMirror
         value={value}
-        onChange={onChange}
-        onCreateEditor={onCreate}
+        onChange={(val: string) => setValue(val)}
+        onCreateEditor={(editorView: EditorView) =>
+          (editorRef.current = editorView)
+        }
         theme={themes[theme as keyof typeof themes] as Theme}
         extensions={extensions}
         editable={false}
