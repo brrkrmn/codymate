@@ -6,7 +6,8 @@ import Scene from "./components/Scene/Scene";
 
 const SceneFlow = () => {
   const playerRef = useRef<PlayerRef>(null);
-  const { scenes, createScene, setIsPlaying, duration } = useSceneContext();
+  const { scenes, createScene, setIsPlaying, duration, isPlaying } =
+    useSceneContext();
 
   useEffect(() => {
     if (!playerRef.current) {
@@ -49,7 +50,9 @@ const SceneFlow = () => {
         </div>
         <button onClick={onCreateScene}>Create Scene</button>
       </div>
-      <button onClick={onPlay}>preview</button>
+      <button onClick={onPlay} disabled={isPlaying}>
+        preview
+      </button>
       <Player
         ref={playerRef}
         component={Preview}
@@ -61,10 +64,6 @@ const SceneFlow = () => {
           width: 1280,
           height: 720,
         }}
-        controls
-        showVolumeControls={false}
-        allowFullscreen={false}
-        clickToPlay={true}
       />
     </div>
   );
