@@ -1,7 +1,7 @@
 import { useSceneContext } from "@/context/scene";
-import { PreviewComposition } from "@/remotion/Composition";
 import { Player } from "@remotion/player";
 import { useState } from "react";
+import Preview from "./components/Preview/Preview";
 import Scene from "./components/Scene/Scene";
 
 const SceneFlow = () => {
@@ -24,7 +24,7 @@ const SceneFlow = () => {
       <button onClick={() => setIsPreview(true)}>preview</button>
       {isPreview && (
         <Player
-          component={PreviewComposition}
+          component={Preview}
           durationInFrames={120}
           compositionWidth={1920}
           compositionHeight={1080}
@@ -34,8 +34,10 @@ const SceneFlow = () => {
             height: 720,
           }}
           controls
+          showVolumeControls={false}
+          allowFullscreen={false}
+          clickToPlay={true}
           autoPlay
-          loop
         />
       )}
     </div>
