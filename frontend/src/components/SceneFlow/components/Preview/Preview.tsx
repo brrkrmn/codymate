@@ -24,12 +24,11 @@ const Preview = () => {
     }
 
     if (isPlaying) {
+      resetEditor(editorRef.current);
       initializeEditor(editorRef.current);
 
       const transactions = createTransactions();
       dispatchTransactions(editorRef.current, transactions);
-    } else {
-      resetEditor(editorRef.current);
     }
   }, [isPlaying]);
 

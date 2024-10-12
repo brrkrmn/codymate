@@ -14,6 +14,7 @@ export type SceneContextValue = null | {
   setIsPlaying: (value: boolean) => void;
   resetEditor: (editorView: EditorView) => void;
   initializeEditor: (editorView: EditorView) => void;
+  duration: number;
 };
 
 export type Change = {

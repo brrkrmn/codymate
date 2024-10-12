@@ -6,7 +6,7 @@ import Scene from "./components/Scene/Scene";
 
 const SceneFlow = () => {
   const playerRef = useRef<PlayerRef>(null);
-  const { scenes, createScene, setIsPlaying } = useSceneContext();
+  const { scenes, createScene, setIsPlaying, duration } = useSceneContext();
 
   useEffect(() => {
     if (!playerRef.current) {
@@ -53,7 +53,7 @@ const SceneFlow = () => {
       <Player
         ref={playerRef}
         component={Preview}
-        durationInFrames={60}
+        durationInFrames={duration}
         compositionWidth={1920}
         compositionHeight={1080}
         fps={30}

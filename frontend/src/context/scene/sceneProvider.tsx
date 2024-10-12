@@ -23,6 +23,7 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
     },
   ]);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [duration, setDuration] = useState(60);
 
   const createScene = (initialValue = "") => {
     setScenes((prevScenes) => [
@@ -64,7 +65,7 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         newTransactions.push(...transactions);
       }
     }
-
+    setDuration(Math.ceil(newTransactions.length * 3) + 30);
     return newTransactions;
   };
 
@@ -114,6 +115,7 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         setIsPlaying,
         resetEditor,
         initializeEditor,
+        duration,
       }}
     >
       {children}
