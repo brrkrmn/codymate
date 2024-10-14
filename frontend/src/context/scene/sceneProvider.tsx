@@ -1,9 +1,7 @@
 "use client";
 
-import getDiff from "@/utils/getDiff";
-import { EditorView } from "@uiw/react-codemirror";
 import { createContext, useContext, useState } from "react";
-import { Scene, SceneContextValue, Transaction } from "./sceneProvider.types";
+import { Scene, SceneContextValue } from "./sceneProvider.types";
 
 export const SceneContext = createContext<SceneContextValue>(null);
 
@@ -22,8 +20,6 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
       content: "",
     },
   ]);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [duration, setDuration] = useState(60);
 
   const createScene = (initialValue = "") => {
     setScenes((prevScenes) => [
@@ -52,56 +48,6 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const createTransactions = () => {
-    const newTransactions = [];
-
-    for (let i = 0; i < scenes.length - 1; i++) {
-      const oldScene = scenes[i].content;
-      const newScene = scenes[i + 1].content;
-
-      const transactions = getDiff(oldScene, newScene);
-
-      if (transactions.length > 0) {
-        newTransactions.push(...transactions);
-      }
-    }
-    setDuration(Math.ceil(newTransactions.length * 3) + 30);
-    return newTransactions;
-  };
-
-  const dispatchTransactions = (
-    editorView: EditorView,
-    transactions: Transaction[],
-  ) => {
-    transactions.forEach((transaction, index) => {
-      setTimeout(() => {
-        editorView.dispatch({
-          changes: {
-            from: transaction.from,
-            to: transaction.to,
-            insert: transaction.insert,
-          },
-        });
-      }, index * 100);
-    });
-  };
-
-  const initializeEditor = (editorView: EditorView) => {
-    editorView.dispatch({
-      changes: { from: 0, insert: scenes[0].content },
-    });
-  };
-
-  const resetEditor = (editorView: EditorView) => {
-    editorView.dispatch({
-      changes: {
-        from: 0,
-        to: editorView.state.doc.toString().length,
-        insert: "",
-      },
-    });
-  };
-
   return (
     <SceneContext.Provider
       value={{
@@ -109,13 +55,6 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         createScene,
         editScene,
         deleteScene,
-        dispatchTransactions,
-        createTransactions,
-        isPlaying,
-        setIsPlaying,
-        resetEditor,
-        initializeEditor,
-        duration,
       }}
     >
       {children}

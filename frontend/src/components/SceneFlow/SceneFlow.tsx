@@ -1,4 +1,5 @@
 import { useSceneContext } from "@/context/scene";
+import { useTransactionContext } from "@/context/transaction/transactionProvider";
 import { Player, PlayerRef } from "@remotion/player";
 import { useEffect, useRef } from "react";
 import Preview from "./components/Preview/Preview";
@@ -6,8 +7,8 @@ import Scene from "./components/Scene/Scene";
 
 const SceneFlow = () => {
   const playerRef = useRef<PlayerRef>(null);
-  const { scenes, createScene, setIsPlaying, duration, isPlaying } =
-    useSceneContext();
+  const { scenes, createScene } = useSceneContext();
+  const { setIsPlaying, duration, isPlaying } = useTransactionContext();
 
   useEffect(() => {
     if (!playerRef.current) {

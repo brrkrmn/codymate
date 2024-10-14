@@ -1,5 +1,6 @@
 import EditorProvider from "@/context/editor/editorProvider";
 import SceneProvider from "@/context/scene/sceneProvider";
+import TransactionProvider from "@/context/transaction/transactionProvider";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased`}>
         <EditorProvider>
-          <SceneProvider>{children}</SceneProvider>
+          <SceneProvider>
+            <TransactionProvider>{children}</TransactionProvider>
+          </SceneProvider>
         </EditorProvider>
       </body>
     </html>

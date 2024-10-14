@@ -1,36 +1,22 @@
 import { useEditorContext } from "@/context/editor";
 import { Theme } from "@/context/editor/editorProvider.types";
-import { useSceneContext } from "@/context/scene";
+import { useTransactionContext } from "@/context/transaction/transactionProvider";
 import * as themes from "@uiw/codemirror-themes-all";
 import CodeMirror, { EditorView } from "@uiw/react-codemirror";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const Preview = () => {
   const editorRef = useRef<EditorView | null>(null);
-  const {
-    dispatchTransactions,
-    scenes,
-    createTransactions,
-    isPlaying,
-    resetEditor,
-    initializeEditor,
-  } = useSceneContext();
   const { theme, extensions, background, gradient } = useEditorContext();
+  const { setEditorRef } = useTransactionContext();
   const [value, setValue] = useState("");
 
-  useEffect(() => {
-    if (!editorRef.current) {
-      return;
-    }
+  const onCreate = (editorView: EditorView) => {
+    editorRef.current = editorView;
+    setEditorRef(editorRef.current);
+  };
 
-    if (isPlaying) {
-      resetEditor(editorRef.current);
-      initializeEditor(editorRef.current);
-
-      const transactions = createTransactions();
-      dispatchTransactions(editorRef.current, transactions);
-    }
-  }, [isPlaying]);
+  const onChange = (val: string) => setValue(val);
 
   return (
     <div
@@ -39,10 +25,8 @@ const Preview = () => {
     >
       <CodeMirror
         value={value}
-        onChange={(val: string) => setValue(val)}
-        onCreateEditor={(editorView: EditorView) =>
-          (editorRef.current = editorView)
-        }
+        onChange={onChange}
+        onCreateEditor={onCreate}
         theme={themes[theme as keyof typeof themes] as Theme}
         extensions={extensions}
         editable={false}
