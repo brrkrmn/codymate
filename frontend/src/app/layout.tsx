@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar/Navbar";
 import EditorProvider from "@/context/editor/editorProvider";
 import SceneProvider from "@/context/scene/sceneProvider";
 import TransactionProvider from "@/context/transaction/transactionProvider";
@@ -19,7 +20,10 @@ export default function RootLayout({
       <body className={`antialiased`}>
         <EditorProvider>
           <SceneProvider>
-            <TransactionProvider>{children}</TransactionProvider>
+            <TransactionProvider>
+              <Navbar />
+              {children}
+            </TransactionProvider>
           </SceneProvider>
         </EditorProvider>
       </body>

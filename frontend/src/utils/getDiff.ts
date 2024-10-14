@@ -1,4 +1,4 @@
-import { Transaction } from "@/context/scene/sceneProvider.types";
+import { Transaction } from "@/context/transaction/transactionProvider.types";
 
 const getDiff = (oldContent: string, newContent: string): Transaction[] => {
   const transaction = [];
