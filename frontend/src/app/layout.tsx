@@ -3,6 +3,7 @@ import EditorProvider from "@/context/editor/editorProvider";
 import SceneProvider from "@/context/scene/sceneProvider";
 import TransactionProvider from "@/context/transaction/transactionProvider";
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,8 +22,10 @@ export default function RootLayout({
         <EditorProvider>
           <SceneProvider>
             <TransactionProvider>
-              <Navbar />
-              {children}
+              <SessionProvider>
+                <Navbar />
+                {children}
+              </SessionProvider>
             </TransactionProvider>
           </SceneProvider>
         </EditorProvider>

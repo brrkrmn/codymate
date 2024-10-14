@@ -1,21 +1,21 @@
+"use client";
+
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const Navbar = () => {
-  const user = true;
+  const { data: session, status } = useSession();
+
+  if (status === "loading") return null;
+
   return (
     <div className="flex gap-4">
       <Link href="/">CODYMATE</Link>
       <Link href="/editor">Editor</Link>
-      {user ? (
-        <>
-          <button>Log out</button>
-          <Link href="/">Dashboard</Link>
-        </>
+      {session?.user ? (
+        <button onClick={() => signOut()}>Log out</button>
       ) : (
-        <>
-          <Link href="/login">Login</Link>
-          <Link href="/signup">Signup</Link>
-        </>
+        <Link href="/login">Login</Link>
       )}
     </div>
   );
