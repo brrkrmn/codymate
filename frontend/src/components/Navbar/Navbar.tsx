@@ -1,17 +1,20 @@
 "use client";
 
+import { useSnippetContext } from "@/context/snippet";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
 const Navbar = () => {
+  const { createSnippet } = useSnippetContext();
   const { data: session, status } = useSession();
   const router = useRouter();
 
   const handleOpenEditor = () => {
     const id = uuidv4();
     router.push(`/editor/${id}`);
+    createSnippet(id);
   };
 
   if (status === "loading") return null;

@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar/Navbar";
 import EditorProvider from "@/context/editor/editorProvider";
 import SceneProvider from "@/context/scene/sceneProvider";
+import SnippetProvider from "@/context/snippet/snippetProvider";
 import TransactionProvider from "@/context/transaction/transactionProvider";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
@@ -19,16 +20,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        <EditorProvider>
-          <SceneProvider>
-            <TransactionProvider>
-              <SessionProvider>
-                <Navbar />
-                {children}
-              </SessionProvider>
-            </TransactionProvider>
-          </SceneProvider>
-        </EditorProvider>
+        <SnippetProvider>
+          <EditorProvider>
+            <SceneProvider>
+              <TransactionProvider>
+                <SessionProvider>
+                  <Navbar />
+                  {children}
+                </SessionProvider>
+              </TransactionProvider>
+            </SceneProvider>
+          </EditorProvider>
+        </SnippetProvider>
       </body>
     </html>
   );

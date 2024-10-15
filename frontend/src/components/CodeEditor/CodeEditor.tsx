@@ -2,8 +2,10 @@ import { useEditorContext } from "@/context/editor/editorProvider";
 import { Theme } from "@/context/editor/editorProvider.types";
 import { useSceneContext } from "@/context/scene";
 import { Scene } from "@/context/scene/sceneProvider.types";
+import { useSnippetContext } from "@/context/snippet";
 import * as themes from "@uiw/codemirror-themes-all";
 import CodeMirror, { EditorView } from "@uiw/react-codemirror";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const CodeEditor = ({ scene }: { scene: Scene }) => {
@@ -11,9 +13,13 @@ const CodeEditor = ({ scene }: { scene: Scene }) => {
   const [value, setValue] = useState(scene?.content || scenes[0].content);
   const { theme, extensions } = useEditorContext();
   const editorRef = useRef<EditorView | null>(null);
+  const pathname = usePathname();
+  const id = pathname.split("/")[2];
+  const { editSnippet } = useSnippetContext();
 
   useEffect(() => {
     setValue(scene.content);
+    editSnippet({ id, scenes });
   }, [scenes]);
 
   const onChange = useCallback((val: string) => {

@@ -1,15 +1,8 @@
+import { useSnippetContext } from "@/context/snippet/snippetProvider";
 import SnippetCard from "./components/SnippetCard/SnippetCard";
 
 const Dashboard = () => {
-  const snippets = [
-    {
-      id: 1,
-      backgroundColor: "black",
-      borderRadius: "8 px",
-      title: "First Snippet",
-      value: "the value of string falan",
-    },
-  ];
+  const { snippets } = useSnippetContext();
 
   return (
     <div>

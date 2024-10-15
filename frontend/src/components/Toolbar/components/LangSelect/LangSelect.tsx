@@ -1,4 +1,5 @@
 import { useEditorContext } from "@/context/editor/editorProvider";
+import { Language } from "@/context/editor/editorProvider.types";
 import { langs } from "@uiw/codemirror-extensions-langs";
 
 const LangSelect = () => {
@@ -7,7 +8,7 @@ const LangSelect = () => {
   return (
     <select
       value={language}
-      onChange={(e) => setLanguage(e.target.value as keyof typeof langs)}
+      onChange={(e) => setLanguage(e.target.value as Language)}
     >
       {Object.keys(langs)
         .sort()

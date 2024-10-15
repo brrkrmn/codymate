@@ -2,7 +2,9 @@
 import { Extension } from "@codemirror/state";
 import { langs } from "@uiw/codemirror-extensions-langs";
 import { EditorView } from "@uiw/react-codemirror";
-import { createContext, useContext, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useSnippetContext } from "../snippet";
 import { EditorContextValue, Language, Theme } from "./editorProvider.types";
 
 export const EditorContext = createContext<EditorContextValue>(null);
@@ -21,6 +23,37 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [radius, setRadius] = useState("8");
   const [background, setBackground] = useState("#2b2b2b");
   const [gradient, setGradient] = useState("");
+  const pathname = usePathname();
+  const { editSnippet, currentSnippet } = useSnippetContext();
+
+  const id = pathname.split("/")[2];
+
+  useEffect(() => {
+    if (!currentSnippet) {
+      return;
+    }
+    console.log(currentSnippet);
+    setTheme(currentSnippet?.theme);
+    setLanguage(currentSnippet?.language as Language);
+    setRadius(currentSnippet?.borderRadius as string);
+    setBackground(currentSnippet?.backgroundColor as string);
+  }, [pathname]);
+
+  useEffect(() => {
+    editSnippet({ id, theme });
+  }, [theme]);
+
+  useEffect(() => {
+    editSnippet({ id, language });
+  }, [language]);
+
+  useEffect(() => {
+    editSnippet({ id, borderRadius: radius });
+  }, [radius]);
+
+  useEffect(() => {
+    editSnippet({ id, backgroundColor: background });
+  }, [background]);
 
   const themeExt = EditorView.theme({
     "&.cm-editor": {
