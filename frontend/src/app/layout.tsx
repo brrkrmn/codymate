@@ -3,6 +3,7 @@ import EditorProvider from "@/context/editor/editorProvider";
 import SceneProvider from "@/context/scene/sceneProvider";
 import SnippetProvider from "@/context/snippet/snippetProvider";
 import TransactionProvider from "@/context/transaction/transactionProvider";
+import { NextUIProvider } from "@nextui-org/react";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import "./globals.css";
@@ -20,18 +21,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        <SnippetProvider>
-          <EditorProvider>
-            <SceneProvider>
-              <TransactionProvider>
-                <SessionProvider>
-                  <Navbar />
-                  {children}
-                </SessionProvider>
-              </TransactionProvider>
-            </SceneProvider>
-          </EditorProvider>
-        </SnippetProvider>
+        <NextUIProvider>
+          <SnippetProvider>
+            <EditorProvider>
+              <SceneProvider>
+                <TransactionProvider>
+                  <SessionProvider>
+                    <Navbar />
+                    {children}
+                  </SessionProvider>
+                </TransactionProvider>
+              </SceneProvider>
+            </EditorProvider>
+          </SnippetProvider>
+        </NextUIProvider>
       </body>
     </html>
   );
