@@ -1,5 +1,5 @@
+import { nextui } from "@nextui-org/react";
 import type { Config } from "tailwindcss";
-const { nextui } = require("@nextui-org/react");
 
 const config: Config = {
   content: [
@@ -10,7 +10,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {},
+      backgroundImage: {
+        mainGradient: `radial-gradient(circle, rgba(186,207,247,0.02) 0%, rgba(186,207,247,0.00) 100%);`,
+        secondaryGradient: `radial-gradient(50% 38.81% at 50% 61.19%, rgba(75, 113, 250, 0.08) 0%, rgba(5, 5, 11, 0) 100%),
+                          radial-gradient(50% 36.46% at 50% 36.46%, rgba(75, 113, 250, 0.08) 0%, rgba(5, 5, 11, 0) 100%)`,
+      },
     },
   },
   darkMode: "class",
@@ -44,62 +48,22 @@ const config: Config = {
       },
       defaultTheme: "dark",
       themes: {
-        light: {
-          layout: {
-            hoverOpacity: 0.8,
-            boxShadow: {
-              small:
-                "0px 0px 5px 0px rgb(0 0 0 / 0.02), 0px 2px 10px 0px rgb(0 0 0 / 0.06), 0px 0px 1px 0px rgb(0 0 0 / 0.3)",
-              medium:
-                "0px 0px 15px 0px rgb(0 0 0 / 0.03), 0px 2px 30px 0px rgb(0 0 0 / 0.08), 0px 0px 1px 0px rgb(0 0 0 / 0.3)",
-              large:
-                "0px 0px 30px 0px rgb(0 0 0 / 0.04), 0px 30px 60px 0px rgb(0 0 0 / 0.12), 0px 0px 1px 0px rgb(0 0 0 / 0.3)",
-            },
-          },
-          colors: {
-            background: "#FAFAFA",
-            foreground: "#18181B",
-            content1: "#FAFAFA",
-            content2: "#F4F4F5",
-            content3: "#E4E4E7",
-            content4: "#D4D4D8",
-            primary: {
-              background: "#FAFAFA",
-              foreground: "#18181B",
-              content1: "#FAFAFA",
-              content2: "#F4F4F5",
-              content3: "#E4E4E7",
-              content4: "#D4D4D8",
-            },
-          },
-        },
         dark: {
           layout: {
             hoverOpacity: 0.9,
             boxShadow: {
-              small:
-                "0px 0px 5px 0px rgb(0 0 0 / 0.05), 0px 2px 10px 0px rgb(0 0 0 / 0.2), inset 0px 0px 1px 0px rgb(255 255 255 / 0.15)",
-              medium:
-                "0px 0px 15px 0px rgb(0 0 0 / 0.06), 0px 2px 30px 0px rgb(0 0 0 / 0.22), inset 0px 0px 1px 0px rgb(255 255 255 / 0.15)",
               large:
-                "0px 0px 30px 0px rgb(0 0 0 / 0.07), 0px 30px 60px 0px rgb(0 0 0 / 0.26), inset 0px 0px 1px 0px rgb(255 255 255 / 0.15)",
+                "inset 0 0 0 1px rgba(216,236,248,.2), inset 0 0 20px 2px rgba(168,216,245,.2), 0 0 0 0 rgba(0,0,0,.3)",
+              medium:
+                "inset 0 1px 1px 0 rgba(216,236,248,.2), inset 0 0 48px 0 rgba(168,216,245,.06), 0 16px 32px rgba(0,0,0,.3)",
+              small:
+                "inset 0 1px 1px 0 rgba(199,211,234,.12), inset 0 24px 48px 0 rgba(199,211,234,.05)",
             },
           },
           colors: {
-            background: "#18181B",
-            foreground: "#FAFAFA",
-            content1: "#18181B",
-            content2: "#27272A",
-            content3: "#3F3F46",
-            content4: "#52525B",
-            primary: {
-              background: "#18181B",
-              foreground: "#FAFAFA",
-              content1: "#18181B",
-              content2: "#27272A",
-              content3: "#3F3F46",
-              content4: "#52525B",
-            },
+            background: "#05060f",
+            divider: "#bacff71f",
+            content1: "#bad6f703",
           },
         },
       },
