@@ -11,6 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
+        textGradient: "radial-gradient(circle, #d8ecf8 0%, #98c0ef 100%)",
         mainGradient: `radial-gradient(circle, rgba(186,207,247,0.02) 0%, rgba(186,207,247,0.00) 100%);`,
         secondaryGradient: `radial-gradient(50% 38.81% at 50% 61.19%, rgba(75, 113, 250, 0.08) 0%, rgba(5, 5, 11, 0) 100%),
                           radial-gradient(50% 36.46% at 50% 36.46%, rgba(75, 113, 250, 0.08) 0%, rgba(5, 5, 11, 0) 100%)`,
@@ -40,16 +41,14 @@ const config: Config = {
           medium: "12px",
           large: "14px",
         },
-        borderWidth: {
-          small: "1px",
-          medium: "2px",
-          large: "3px",
-        },
       },
       defaultTheme: "dark",
       themes: {
         dark: {
           layout: {
+            borderWidth: {
+              small: "1px",
+            },
             hoverOpacity: 0.9,
             boxShadow: {
               large:
@@ -62,8 +61,10 @@ const config: Config = {
           },
           colors: {
             background: "#05060f",
+            foreground: { primary: "#c7d3ea", secondary: "#d1e4fa" },
             divider: "#bacff71f",
             content1: "#bad6f703",
+            content2: "#bad6f70f",
           },
         },
       },
