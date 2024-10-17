@@ -8,10 +8,12 @@ import {
   Navbar as NextNavBar,
 } from "@nextui-org/react";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LuLogOut } from "react-icons/lu";
 import { v4 as uuidv4 } from "uuid";
+import Logo from "../../../public/logo.svg";
 
 const Navbar = () => {
   const { createSnippet } = useSnippetContext();
@@ -38,7 +40,9 @@ const Navbar = () => {
         }}
       >
         <NavbarBrand>
-          <Link href="/">CODYMATE</Link>
+          <Link href="/" className="ml-2">
+            <Image src={Logo} alt="Logo" width={20} height={20} />
+          </Link>
         </NavbarBrand>
         <NavbarContent>
           <NavbarItem>
