@@ -7,17 +7,17 @@ import {
   NavbarItem,
   Navbar as NextNavBar,
 } from "@nextui-org/react";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LuLogOut } from "react-icons/lu";
 import { v4 as uuidv4 } from "uuid";
 import Logo from "../../../public/logo.svg";
+import AuthButton from "./components/AuthButton/AuthButton";
 
 const Navbar = () => {
   const { createSnippet } = useSnippetContext();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   const handleOpenEditor = () => {
@@ -49,23 +49,7 @@ const Navbar = () => {
             <button onClick={handleOpenEditor}>Editor</button>
           </NavbarItem>
           <NavbarItem className="ml-auto">
-            {session?.user ? (
-              <button
-                className="group w-20 transition-all flex items-center justify-center border-small border-divider rounded-full h-8 shadow-medium hover:shadow-large"
-                onClick={() => signOut()}
-              >
-                <LuLogOut className="text-foreground opacity-50 group-hover:opacity-100 transition" />
-              </button>
-            ) : (
-              <Link
-                href="/login"
-                className="group w-20 transition flex items-center justify-center border-small border-divider rounded-full h-8 shadow-medium hover:shadow-large"
-              >
-                <p className="transition bg-clip-text bg-textGradient text-foreground-secondary opacity-80 group-hover:opacity-100">
-                  Login
-                </p>
-              </Link>
-            )}
+            <AuthButton />
           </NavbarItem>
         </NavbarContent>
       </NextNavBar>
