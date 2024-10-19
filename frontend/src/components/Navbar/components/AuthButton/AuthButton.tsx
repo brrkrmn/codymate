@@ -14,7 +14,7 @@ const AuthButton = () => {
     );
   } else {
     return (
-      <Link href="/login" className={buttonStyles}>
+      <Link href="/#login" className={buttonStyles}>
         <p className={buttonTextStyles}>Login</p>
       </Link>
     );

@@ -28,36 +28,39 @@ const Navbar = () => {
   };
 
   if (status === "loading") return null;
+  if (status === "unauthenticated") return null;
+  if (status === "authenticated") {
+    return (
+      <div className="w-full flex items-center mt-4 px-4 sticky top-4 inset-x-0">
+        <NextNavBar
+          maxWidth="lg"
+          height="40px"
+          isBordered
+          classNames={{
+            base: "!mx-auto rounded-full w-[1024px] border-divider border-small backdrop-blur-sm",
+            wrapper: "rounded-full bg-content2 px-2 ",
+          }}
+        >
+          <NavbarBrand>
+            <Link href="/" className="ml-2">
+              <Image src={Logo} alt="Logo" width={20} height={20} />
+            </Link>
+          </NavbarBrand>
+          <NavbarContent className="ml-auto max-w-fit">
+            <NavbarItem>
+              <button onClick={handleOpenEditor} className={`${buttonStyles}`}>
+                Playground
+              </button>
+            </NavbarItem>
+            <NavbarItem>
+              <AuthButton />
+            </NavbarItem>
+          </NavbarContent>
+        </NextNavBar>
+      </div>
+    );
+  }
 
-  return (
-    <div className="w-full flex items-center mt-4 px-4 sticky top-4 inset-x-0">
-      <NextNavBar
-        maxWidth="lg"
-        height="40px"
-        isBordered
-        classNames={{
-          base: "!mx-auto rounded-full w-[1024px] border-divider border-small backdrop-blur-sm",
-          wrapper: "rounded-full bg-content2 px-2 ",
-        }}
-      >
-        <NavbarBrand>
-          <Link href="/" className="ml-2">
-            <Image src={Logo} alt="Logo" width={20} height={20} />
-          </Link>
-        </NavbarBrand>
-        <NavbarContent className="ml-auto max-w-fit">
-          <NavbarItem>
-            <button onClick={handleOpenEditor} className={`${buttonStyles}`}>
-              Playground
-            </button>
-          </NavbarItem>
-          <NavbarItem>
-            <AuthButton />
-          </NavbarItem>
-        </NavbarContent>
-      </NextNavBar>
-    </div>
-  );
 };
 
 export default Navbar;
