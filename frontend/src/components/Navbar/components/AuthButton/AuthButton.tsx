@@ -8,14 +8,14 @@ const AuthButton = () => {
 
   if (session?.user) {
     return (
-      <button className={`${buttonStyles} w-20 h-8`} onClick={() => signOut()}>
-        <LuLogOut className={`${buttonTextStyles}`} />
+      <button className={buttonStyles} onClick={() => signOut()}>
+        <LuLogOut className={buttonTextStyles} />
       </button>
     );
   } else {
     return (
-      <Link href="/login" className={`${buttonStyles} w-20 h-8`}>
-        <p className={`${buttonTextStyles}`}>Login</p>
+      <Link href="/login" className={buttonStyles}>
+        <p className={buttonTextStyles}>Login</p>
       </Link>
     );
   }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useSnippetContext } from "@/context/snippet";
+import { buttonStyles } from "@/styles";
 import {
   NavbarBrand,
   NavbarContent,
@@ -44,11 +45,13 @@ const Navbar = () => {
             <Image src={Logo} alt="Logo" width={20} height={20} />
           </Link>
         </NavbarBrand>
-        <NavbarContent>
+        <NavbarContent className="ml-auto max-w-fit">
           <NavbarItem>
-            <button onClick={handleOpenEditor}>Editor</button>
+            <button onClick={handleOpenEditor} className={`${buttonStyles}`}>
+              Playground
+            </button>
           </NavbarItem>
-          <NavbarItem className="ml-auto">
+          <NavbarItem>
             <AuthButton />
           </NavbarItem>
         </NavbarContent>
