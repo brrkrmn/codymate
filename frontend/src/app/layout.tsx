@@ -27,8 +27,10 @@ export default function RootLayout({
               <SceneProvider>
                 <TransactionProvider>
                   <SessionProvider>
-                    <Navbar />
-                    {children}
+                    <main className="border-2 w-full min-h-screen px-4 laptop:px-40">
+                      <Navbar />
+                      {children}
+                    </main>
                   </SessionProvider>
                 </TransactionProvider>
               </SceneProvider>

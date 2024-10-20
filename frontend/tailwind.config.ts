@@ -9,6 +9,11 @@ const config: Config = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      mobile: "425px",
+      tablet: "600px",
+      laptop: "1024px",
+    },
     extend: {
       backgroundImage: {
         textGradient: "radial-gradient(circle, #d8ecf8 0%, #98c0ef 100%)",
