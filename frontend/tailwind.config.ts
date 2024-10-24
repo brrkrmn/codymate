@@ -66,7 +66,7 @@ const config: Config = {
           },
           colors: {
             background: "#05060f",
-            foreground: { primary: "#c7d3ea", secondary: "#d1e4fa" },
+            foreground: { DEFAULT: "#c7d3ea", 50: "#d1e4fa" },
             divider: "#bacff71f",
             content1: "#bad6f703",
             content2: "#bad6f70f",
