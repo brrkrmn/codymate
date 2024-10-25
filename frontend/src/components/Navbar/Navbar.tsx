@@ -23,9 +23,9 @@ const Navbar = () => {
       <div className="w-full flex items-center sticky top-0">
         <NextNavBar
           maxWidth="full"
-          height="40px"
           classNames={{
             base: "rounded-full backdrop-blur-sm py-4",
+            wrapper: "h-6 tablet:h-10",
           }}
         >
           <NavbarBrand>
