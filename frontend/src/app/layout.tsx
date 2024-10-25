@@ -27,7 +27,7 @@ export default function RootLayout({
               <SceneProvider>
                 <TransactionProvider>
                   <SessionProvider>
-                    <main className="w-full min-h-screen px-4 laptop:px-40">
+                    <main className="w-full min-h-screen px-2 tablet:px-4 laptop:px-40">
                       <Navbar />
                       {children}
                     </main>

@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@/common/Button/Button";
 import {
   NavbarBrand,
   NavbarContent,
@@ -25,7 +24,7 @@ const Navbar = () => {
           maxWidth="full"
           classNames={{
             base: "rounded-full backdrop-blur-sm py-4",
-            wrapper: "h-6 tablet:h-10",
+            wrapper: "h-6 tablet:h-10 px-0",
           }}
         >
           <NavbarBrand>
@@ -35,10 +34,20 @@ const Navbar = () => {
           </NavbarBrand>
           <NavbarContent className="ml-auto max-w-fit">
             <NavbarItem>
-              <Tooltip content="Logout" closeDelay={0} delay={200}>
-                <Button onClick={() => signOut()}>
-                  <LuLogOut />
-                </Button>
+              <Tooltip
+                classNames={{
+                  base: "font-thin text-foreground-50",
+                }}
+                content="Logout"
+                closeDelay={0}
+                delay={200}
+              >
+                <button
+                  onClick={() => signOut()}
+                  className="w-fit h-8 px-6 rounded-full flex items-center justify-center border-small border-divider shadow-medium transition hover:shadow-large"
+                >
+                  <LuLogOut className="bg-clip-text bg-textGradient text-foreground-50" />
+                </button>
               </Tooltip>
             </NavbarItem>
           </NavbarContent>
