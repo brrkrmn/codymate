@@ -1,6 +1,6 @@
 "use client";
 
-import { buttonStyles, buttonTextStyles } from "@/styles";
+import Button from "@/common/Button/Button";
 import {
   NavbarBrand,
   NavbarContent,
@@ -36,9 +36,9 @@ const Navbar = () => {
           <NavbarContent className="ml-auto max-w-fit">
             <NavbarItem>
               <Tooltip content="Logout" closeDelay={0} delay={200}>
-                <button className={buttonStyles} onClick={() => signOut()}>
-                  <LuLogOut className={buttonTextStyles} />
-                </button>
+                <Button onClick={() => signOut()}>
+                  <LuLogOut />
+                </Button>
               </Tooltip>
             </NavbarItem>
           </NavbarContent>
