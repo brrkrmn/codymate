@@ -59,10 +59,11 @@ const Filter = () => {
         selectedKeys={selectedKeys}
         onSelectionChange={setSelectedKeys}
         itemClasses={{
-          base: "text-foreground border-small w-fit",
+          base: "group text-foreground rounded-full px-4 border-divider border-small shadow-medium bg-content2 w-fit data-[selected=true]:shadow-large data-[selected=true]:text-foreground-50",
+          selectedIcon: "absolute group-data-[selected=true]:relative",
         }}
         classNames={{
-          base: "flex-row",
+          base: "transition w-full tablet:max-w-96",
         }}
         variant="bordered"
         selectionMode="multiple"
@@ -71,7 +72,10 @@ const Filter = () => {
           <DropdownSection
             title={section.title}
             showDivider
-            classNames={{ base: "text-foreground-100" }}
+            classNames={{
+              base: "text-foreground-100",
+              group: "flex gap-2 flex-wrap",
+            }}
           >
             {section.items.map((item) => (
               <DropdownItem key={item.key}>{item.content}</DropdownItem>

@@ -50,7 +50,7 @@ const Sort = () => {
         onSelectionChange={setSelectedKey}
         defaultSelectedKeys={["dateNew"]}
         itemClasses={{
-          base: "text-foreground border-small",
+          base: "text-foreground border-small rounded-full data-[selected=true]:text-foreground-50 data-[selected=true]:shadow-large",
         }}
         variant="bordered"
         selectionMode="single"
