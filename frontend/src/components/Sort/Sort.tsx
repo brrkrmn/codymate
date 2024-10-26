@@ -39,7 +39,7 @@ const Sort = () => {
       }}
     >
       <DropdownTrigger className="outline-none">
-        <button className="w-fit px-4 flex items-center justify-center gap-2 border-small border-divider rounded-full bg-content1 text-foreground-100 transition hover:shadow-small hover:text-foreground-50">
+        <button className="w-fit px-5 flex items-center justify-center gap-2 border-small border-divider rounded-full bg-content1 text-foreground-100 transition hover:shadow-small hover:text-foreground-50">
           <TbArrowsSort />
           <p>Sort</p>
         </button>

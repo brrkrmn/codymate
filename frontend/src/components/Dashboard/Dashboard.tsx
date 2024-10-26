@@ -9,7 +9,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col gap-6 py-6">
       <h1 className="text-3xl">My Snippets</h1>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <Sort />
         <Filter />
       </div>

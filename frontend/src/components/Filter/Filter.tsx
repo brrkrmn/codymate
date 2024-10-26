@@ -2,6 +2,7 @@ import { Language } from "@/context/editor/editorProvider.types";
 import { useSnippetContext } from "@/context/snippet";
 import type { Selection } from "@nextui-org/react";
 import {
+  Badge,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -41,6 +42,8 @@ const Filter = () => {
     },
   ];
 
+  const selectedKeyCount = Array.from(selectedKeys).length;
+
   return (
     <Dropdown
       backdrop="blur"
@@ -48,12 +51,21 @@ const Filter = () => {
         content: "bg-background shadow-medium",
       }}
     >
-      <DropdownTrigger className="outline-none">
-        <button className="w-fit px-4 flex items-center justify-center gap-2 border-small border-divider rounded-full bg-content1 text-foreground-100 transition hover:shadow-small hover:text-foreground-50">
-          <IoOptionsOutline />
-          <p>Filter</p>
-        </button>
-      </DropdownTrigger>
+      <Badge
+        isInvisible={selectedKeyCount === 0}
+        content={selectedKeyCount <= 5 ? selectedKeyCount : "+5"}
+        classNames={{
+          badge:
+            "bg-background shadow-large font-thin px-2 w-fit h-6 text-foreground",
+        }}
+      >
+        <DropdownTrigger className="outline-none">
+          <button className="w-fit px-5 flex items-center justify-center gap-2 border-small border-divider rounded-full bg-content1 text-foreground-100 transition hover:shadow-small hover:text-foreground-50">
+            <IoOptionsOutline />
+            <p>Filter</p>
+          </button>
+        </DropdownTrigger>
+      </Badge>
       <DropdownMenu
         closeOnSelect={false}
         selectedKeys={selectedKeys}
