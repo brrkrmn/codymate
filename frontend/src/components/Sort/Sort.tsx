@@ -8,12 +8,28 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { TbArrowsSort } from "react-icons/tb";
-import { sortingOptions } from "./constants";
 
 const Sort = () => {
   const [selectedKey, setSelectedKey] = useState<Selection>(
     new Set(["dateNew"]),
   );
+
+  const sortingOptions = [
+    {
+      title: "Sort by Title",
+      items: [
+        { key: "alphaAsc", content: "A - Z" },
+        { key: "alphaDesc", content: "Z - A" },
+      ],
+    },
+    {
+      title: "Sort by Date",
+      items: [
+        { key: "dateNew", content: "Newest first" },
+        { key: "dateOld", content: "Oldest first" },
+      ],
+    },
+  ];
 
   return (
     <Dropdown
