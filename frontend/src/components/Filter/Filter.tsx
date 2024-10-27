@@ -80,8 +80,9 @@ const Filter = () => {
         variant="bordered"
         selectionMode="multiple"
       >
-        {filteringOptions.map((section) => (
+        {filteringOptions.map((section, index) => (
           <DropdownSection
+            key={index}
             title={section.title}
             showDivider
             classNames={{

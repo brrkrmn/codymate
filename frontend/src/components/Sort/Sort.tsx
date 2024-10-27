@@ -55,8 +55,9 @@ const Sort = () => {
         variant="bordered"
         selectionMode="single"
       >
-        {sortingOptions.map((section) => (
+        {sortingOptions.map((section, index) => (
           <DropdownSection
+            key={index}
             showDivider
             classNames={{ base: "text-foreground-100" }}
             title={section.title}

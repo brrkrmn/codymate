@@ -8,12 +8,12 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col gap-6 py-6">
-      <h1 className="text-3xl">My Snippets</h1>
+      <h1 className="text-3xl">Dashboard</h1>
       <div className="flex items-center gap-3">
         <Sort />
         <Filter />
       </div>
-      <div className="flex flex-wrap items-center justify-center gap-10">
+      <div className="flex flex-wrap items-center justify-start gap-8">
         {snippets.map((snippet) => (
           <SnippetCard key={snippet.id} snippet={snippet} />
         ))}
