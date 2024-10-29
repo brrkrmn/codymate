@@ -16,6 +16,7 @@
     "@remotion/player": "^4.0.221",
     "@remotion/renderer": "^4.0.221",
     "@uiw/codemirror-extensions-langs": "^4.23.4",
+    "@uiw/codemirror-theme-vscode": "^4.23.6",
     "@uiw/codemirror-themes-all": "^4.23.4",
     "@uiw/react-codemirror": "^4.23.4",
     "framer-motion": "^11.11.9",

@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.no-scroll-editor .cm-scroller {
+  overflow-x: hidden !important;
+}

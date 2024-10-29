@@ -13,7 +13,7 @@ const Dashboard = () => {
         <Sort />
         <Filter />
       </div>
-      <div className="flex flex-wrap items-center justify-start gap-8">
+      <div className="flex flex-wrap justify-center items-start laptop:justify-start gap-8">
         {snippets.map((snippet) => (
           <SnippetCard key={snippet.id} snippet={snippet} />
         ))}
