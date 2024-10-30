@@ -33,7 +33,7 @@ const Dashboard = () => {
       <div className="flex flex-wrap justify-center items-start laptop:justify-start gap-8">
         {filteredSnippets.length === 0 ? (
           <div className="w-full text-foreground-100">
-            There's nothing here.
+            There&apos;s nothing here.
           </div>
         ) : (
           filteredSnippets.map((snippet) => (
