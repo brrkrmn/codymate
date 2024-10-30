@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { IoOptionsOutline } from "react-icons/io5";
 
 const Filter = () => {
-  const { snippets } = useSnippetContext();
+  const { snippets, setFilteredSnippets } = useSnippetContext();
   const [langs, setLangs] = useState<Language[]>([]);
   const [themes, setThemes] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([]));
@@ -31,12 +31,38 @@ const Filter = () => {
     setThemes(uniqueThemes);
   }, []);
 
+  useEffect(() => {
+    if (selectedKeyCount === 0) {
+      setFilteredSnippets(snippets);
+    } else {
+      const langFilters = Array.from(selectedKeys)
+        .filter((key) => String(key).includes("lang-"))
+        .map((key) => String(key).split("-")[1]);
+
+      const themeFilters = Array.from(selectedKeys)
+        .filter((key) => String(key).includes("theme-"))
+        .map((key) => String(key).split("-")[1]);
+
+      const filteredSnippets = snippets.filter((snippet) =>
+        langFilters.length > 0 && themeFilters.length > 0
+          ? langFilters.includes(snippet.language) &&
+            themeFilters.includes(snippet.theme as string)
+          : langFilters.length > 0
+            ? langFilters.includes(snippet.language)
+            : themeFilters.includes(snippet.theme as string),
+      );
+      setFilteredSnippets(filteredSnippets);
+    }
+  }, [selectedKeys]);
+
   const filteringOptions = [
     {
+      key: "lang",
       title: "Filter by Language",
       items: langs.map((lang) => ({ key: lang, content: lang })),
     },
     {
+      key: "theme",
       title: "Filter by Theme",
       items: themes.map((theme) => ({ key: theme, content: theme })),
     },
@@ -91,7 +117,9 @@ const Filter = () => {
             }}
           >
             {section.items.map((item) => (
-              <DropdownItem key={item.key}>{item.content}</DropdownItem>
+              <DropdownItem key={`${section.key}-${item.key}`}>
+                {item.content}
+              </DropdownItem>
             ))}
           </DropdownSection>
         ))}

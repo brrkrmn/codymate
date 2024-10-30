@@ -4,7 +4,7 @@ import Sort from "../Sort/Sort";
 import SnippetCard from "./components/SnippetCard/SnippetCard";
 
 const Dashboard = () => {
-  const { snippets } = useSnippetContext();
+  const { filteredSnippets } = useSnippetContext();
 
   return (
     <div className="flex flex-col gap-6 py-6">
@@ -14,7 +14,7 @@ const Dashboard = () => {
         <Filter />
       </div>
       <div className="flex flex-wrap justify-center items-start laptop:justify-start gap-8">
-        {snippets.map((snippet) => (
+        {filteredSnippets.map((snippet) => (
           <SnippetCard key={snippet.id} snippet={snippet} />
         ))}
       </div>

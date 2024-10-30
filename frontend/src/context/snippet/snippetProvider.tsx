@@ -18,6 +18,7 @@ export const useSnippetContext = () => {
 
 const SnippetProvider = ({ children }: { children: React.ReactNode }) => {
   const [snippets, setSnippets] = useState<Snippet[]>([]);
+  const [filteredSnippets, setFilteredSnippets] = useState<Snippet[]>([]);
   const pathname = usePathname();
 
   const currentSnippet = useMemo(() => {
@@ -75,6 +76,8 @@ const SnippetProvider = ({ children }: { children: React.ReactNode }) => {
         editSnippet,
         deleteSnippet,
         currentSnippet,
+        filteredSnippets,
+        setFilteredSnippets,
       }}
     >
       {children}

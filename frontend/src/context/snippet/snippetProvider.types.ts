@@ -7,6 +7,8 @@ export type SnippetContextValue = null | {
   editSnippet: (value: Partial<Snippet>) => void;
   deleteSnippet: (id: string) => void;
   currentSnippet: Snippet | null;
+  filteredSnippets: Snippet[];
+  setFilteredSnippets: (value: Snippet[]) => void;
 };
 
 export type Snippet = {
