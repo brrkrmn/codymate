@@ -1,3 +1,4 @@
+import { useSnippetContext } from "@/context/snippet";
 import type { Selection } from "@nextui-org/react";
 import {
   Dropdown,
@@ -6,27 +7,52 @@ import {
   DropdownSection,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TbArrowsSort } from "react-icons/tb";
 
 const Sort = () => {
+  const { setFilteredSnippets, filteredSnippets } = useSnippetContext();
   const [selectedKey, setSelectedKey] = useState<Selection>(
-    new Set(["dateNew"]),
+    new Set(["date-old"]),
   );
+
+  useEffect(() => {
+    const sortingKey = Array.from(selectedKey)[0];
+    let sortedSnippets = filteredSnippets;
+
+    if (sortingKey === "alphabetical-asc") {
+      sortedSnippets = [...filteredSnippets].sort((a, b) =>
+        a.title.toLowerCase().localeCompare(b.title.toLowerCase()),
+      );
+    } else if (sortingKey === "alphabetical-desc") {
+      sortedSnippets = [...filteredSnippets].sort((a, b) =>
+        b.title.toLowerCase().localeCompare(a.title.toLowerCase()),
+      );
+    } else if (sortingKey === "date-new") {
+      sortedSnippets = [...filteredSnippets].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      );
+    } else if (sortingKey === "date-old") {
+      sortedSnippets = [...filteredSnippets].sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+      );
+    }
+    setFilteredSnippets(sortedSnippets);
+  }, [selectedKey]);
 
   const sortingOptions = [
     {
       title: "Sort by Title",
       items: [
-        { key: "alphaAsc", content: "A - Z" },
-        { key: "alphaDesc", content: "Z - A" },
+        { key: "alphabetical-asc", content: "A - Z" },
+        { key: "alphabetical-desc", content: "Z - A" },
       ],
     },
     {
       title: "Sort by Date",
       items: [
-        { key: "dateNew", content: "Newest first" },
-        { key: "dateOld", content: "Oldest first" },
+        { key: "date-new", content: "Newest first" },
+        { key: "date-old", content: "Oldest first" },
       ],
     },
   ];

@@ -43,6 +43,7 @@ const SnippetProvider = ({ children }: { children: React.ReactNode }) => {
       ...snippets,
       {
         id,
+        date: new Date(),
         title: "Undefined",
         language: "javascript" as Language,
         theme: "androidstudio" as Theme,

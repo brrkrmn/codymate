@@ -13,6 +13,7 @@ export type SnippetContextValue = null | {
 
 export type Snippet = {
   id: string;
+  date: Date;
   theme: Theme;
   language: Language;
   backgroundColor: string;
