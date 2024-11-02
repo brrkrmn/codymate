@@ -32,7 +32,7 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
     if (!currentSnippet) {
       return;
     }
-    console.log(currentSnippet);
+
     setTheme(currentSnippet?.theme);
     setLanguage(currentSnippet?.language as Language);
     setRadius(currentSnippet?.borderRadius as string);
