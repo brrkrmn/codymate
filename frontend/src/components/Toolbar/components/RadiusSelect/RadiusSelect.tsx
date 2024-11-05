@@ -1,31 +1,29 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEditorContext } from "@/context/editor/editorProvider";
+import { RadioGroup } from "@nextui-org/react";
+import CustomRadio from "./components/CustomRadio/CustomRadio";
+import { radiusList } from "./constants";
 
 const RadiusSelect = () => {
   const { setRadius, radius } = useEditorContext();
 
-  const radiusLabels = {
-    0: "none",
-    10: "xs",
-    20: "sm",
-    30: "md",
-    40: "lg",
-  };
-
   return (
-    <>
-      {/* @ts-ignore */}
-      <div>{radiusLabels[radius]}</div>
-      <input
-        type="range"
-        step="10"
-        min="0"
-        max="40"
-        value={radius}
-        id="radius-slider"
-        onChange={(e) => setRadius(e.target.value)}
-      />
-    </>
+    <RadioGroup
+      value={radius}
+      onValueChange={setRadius}
+      size="lg"
+      label="Radius"
+      orientation="horizontal"
+      classNames={{
+        base: "flex-row items-center justify-between h-full px-2 shrink-0 border-small rounded-xl bg-content2 border-divider",
+        wrapper: "gap-4",
+        label: "text-foreground-100 text-xs m-0",
+      }}
+    >
+      {radiusList.map((radius) => (
+        <CustomRadio key={radius.value} radius={radius} />
+      ))}
+    </RadioGroup>
   );
 };
 
