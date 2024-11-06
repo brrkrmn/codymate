@@ -1,7 +1,7 @@
 import { useEditorContext } from "@/context/editor/editorProvider";
+import { Theme } from "@/context/editor/editorProvider.types";
 import { Select, SelectItem } from "@nextui-org/react";
 import * as themes from "@uiw/codemirror-themes-all";
-import { ReactCodeMirrorProps } from "@uiw/react-codemirror";
 
 const ThemeSelect = () => {
   const { theme, setTheme } = useEditorContext();
@@ -20,6 +20,7 @@ const ThemeSelect = () => {
   return (
     <Select
       fullWidth={false}
+      disallowEmptySelection={true}
       size="sm"
       classNames={{
         base: "w-40",
@@ -34,20 +35,18 @@ const ThemeSelect = () => {
       }}
       label="Theme"
       value={theme as string}
-      onChange={(e) =>
-        setTheme(e.target.value as ReactCodeMirrorProps["theme"])
-      }
+      onChange={(e) => setTheme(e.target.value as Theme)}
     >
-      {themeOptions.map((item, key) => {
+      {themeOptions.map((item) => {
         return (
           <SelectItem
             classNames={{
               base: "data-[selectable=true]:focus:bg-content2 data-[selectable=true]:focus:text-foreground-50 data-[selected=true]:border-small data-[selected=true]:border-divider data-[selected=true]:shadow-medium",
             }}
-            key={key}
-          >
-            {item}
-          </SelectItem>
+            key={item}
+            value={item}
+            title={item}
+          />
         );
       })}
     </Select>

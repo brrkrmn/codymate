@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEditorContext } from "@/context/editor/editorProvider";
 import { RadioGroup } from "@nextui-org/react";
 import CustomRadio from "./components/CustomRadio/CustomRadio";

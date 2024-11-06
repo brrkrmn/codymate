@@ -20,8 +20,10 @@ export const useEditorContext = () => {
 const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>();
   const [language, setLanguage] = useState<Language>("javascript");
-  const [radius, setRadius] = useState("8");
-  const [background, setBackground] = useState("#2b2b2b");
+  const [radius, setRadius] = useState("10");
+  const [background, setBackground] = useState(
+    "linear-gradient(45deg, rgba(182,1,255,1) 0%, RGB(65, 31, 161) 49%, rgba(1,1,255,1) 100%)",
+  );
   const pathname = usePathname();
   const { editSnippet, currentSnippet } = useSnippetContext();
 

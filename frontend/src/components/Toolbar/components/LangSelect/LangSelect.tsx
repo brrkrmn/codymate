@@ -8,6 +8,7 @@ const LangSelect = () => {
 
   return (
     <Select
+      disallowEmptySelection={true}
       fullWidth={false}
       size="sm"
       classNames={{
