@@ -5,7 +5,7 @@ import ThemeSelect from "./components/ThemeSelect/ThemeSelect";
 
 const Toolbar = () => {
   return (
-    <div className="flex items-center justify-center gap-2 w-full h-14 py-2 border-small border-divider rounded-xl bg-content2 px-4 bg-mainGradient">
+    <div className="flex items-center justify-center gap-2 w-full h-14 py-2 px-4">
       <LangSelect />
       <ThemeSelect />
       <RadiusSelect />

@@ -19,11 +19,11 @@ const Navbar = () => {
   if (status === "loading" || status === "unauthenticated") return null;
   if (status === "authenticated") {
     return (
-      <div className="w-full flex items-center sticky top-0">
+      <div className="w-full flex items-center sticky top-0 z-50">
         <NextNavBar
           maxWidth="full"
           classNames={{
-            base: "rounded-full backdrop-blur-sm py-4",
+            base: "backdrop-blur-sm py-4",
             wrapper: "h-6 tablet:h-10 px-0",
           }}
         >

@@ -17,9 +17,9 @@ const LangSelect = () => {
         value:
           "text-foreground-50 group-data-[has-value=true]:text-foreground-50",
         trigger:
-          "rounded-xl w-40 min-h-[38px] h-[38px] bg-content2 border-divider border-small data-[hover=true]:bg-content2 data-[focus-visible=true]:outline-0 transition",
+          "rounded-xl w-40 min-h-[38px] h-[38px] bg-content2 border-divider border-small hover:shadow-small data-[hover=true]:bg-content2 data-[focus-visible=true]:outline-0 transition",
         popoverContent: "bg-background p-0",
-        listboxWrapper: "bg-content2 rounded-xl shadow-medium",
+        listboxWrapper: "bg-content2 rounded-xl",
       }}
       label="Language"
       value={language}
