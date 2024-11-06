@@ -17,7 +17,7 @@ const RadiusSelect = () => {
       classNames={{
         base: "flex-row items-center justify-between h-full px-2 shrink-0 border-small rounded-xl bg-content2 border-divider",
         wrapper: "gap-4",
-        label: "text-foreground-100 text-xs m-0",
+        label: "text-foreground-100 text-xs font-semibold m-0",
       }}
     >
       {radiusList.map((radius) => (

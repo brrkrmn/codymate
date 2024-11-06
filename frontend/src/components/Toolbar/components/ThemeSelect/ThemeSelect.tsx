@@ -25,11 +25,11 @@ const ThemeSelect = () => {
       classNames={{
         base: "w-40",
         label:
-          "text-foreground-100 group-data-[filled=true]:text-foreground-100",
+          "text-foreground-100 text-xs group-data-[filled=true]:text-foreground-100",
         value:
           "text-foreground-50 group-data-[has-value=true]:text-foreground-50",
         trigger:
-          "w-40 bg-content1 data-[hover=true]:bg-content2 data-[focus-visible=true]:outline-0 shadow-small transition",
+          "w-40 min-h-[46px] h-[46px] bg-content2 border-divider border-small data-[hover=true]:bg-content2 data-[focus-visible=true]:outline-0 transition",
         popoverContent: "bg-background",
         listboxWrapper: "bg-content2 rounded-xl shadow-small",
       }}
