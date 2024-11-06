@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 
 const Preview = () => {
   const editorRef = useRef<EditorView | null>(null);
-  const { theme, extensions, background, gradient } = useEditorContext();
+  const { theme, extensions, background } = useEditorContext();
   const { setEditorRef } = useTransactionContext();
   const [value, setValue] = useState("");
 
@@ -19,10 +19,7 @@ const Preview = () => {
   const onChange = (val: string) => setValue(val);
 
   return (
-    <div
-      className={`w-full h-full p-10`}
-      style={{ backgroundColor: background, backgroundImage: gradient }}
-    >
+    <div className={`w-full h-full p-10`} style={{ background: background }}>
       <CodeMirror
         value={value}
         onChange={onChange}

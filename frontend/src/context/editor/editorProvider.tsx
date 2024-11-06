@@ -22,7 +22,6 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [language, setLanguage] = useState<Language>("javascript");
   const [radius, setRadius] = useState("8");
   const [background, setBackground] = useState("#2b2b2b");
-  const [gradient, setGradient] = useState("");
   const pathname = usePathname();
   const { editSnippet, currentSnippet } = useSnippetContext();
 
@@ -85,8 +84,6 @@ const EditorProvider = ({ children }: { children: React.ReactNode }) => {
         setRadius,
         background,
         setBackground,
-        gradient,
-        setGradient,
       }}
     >
       {children}
