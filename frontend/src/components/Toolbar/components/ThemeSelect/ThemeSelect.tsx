@@ -19,7 +19,6 @@ const ThemeSelect = () => {
 
   return (
     <Select
-      radius="full"
       fullWidth={false}
       size="sm"
       classNames={{
@@ -29,9 +28,9 @@ const ThemeSelect = () => {
         value:
           "text-foreground-50 group-data-[has-value=true]:text-foreground-50",
         trigger:
-          "w-40 min-h-[46px] h-[46px] bg-content2 border-divider border-small data-[hover=true]:bg-content2 data-[focus-visible=true]:outline-0 transition",
-        popoverContent: "bg-background",
-        listboxWrapper: "bg-content2 rounded-xl shadow-small",
+          "rounded-xl w-40 min-h-[38px] h-[38px] bg-content2 border-divider border-small data-[hover=true]:bg-content2 data-[focus-visible=true]:outline-0 transition",
+        popoverContent: "bg-background p-0",
+        listboxWrapper: "bg-content2 rounded-xl shadow-medium",
       }}
       label="Theme"
       value={theme as string}
@@ -43,8 +42,7 @@ const ThemeSelect = () => {
         return (
           <SelectItem
             classNames={{
-              base: "data-[hover=true]:bg-content2",
-              wrapper: "hover:bg-content2",
+              base: "data-[selectable=true]:focus:bg-content2 data-[selectable=true]:focus:text-foreground-50 data-[selected=true]:border-small data-[selected=true]:border-divider data-[selected=true]:shadow-medium",
             }}
             key={key}
           >
