@@ -1,13 +1,15 @@
 "use client";
 
 import SceneFlow from "@/components/SceneFlow/SceneFlow";
+import SceneTimeline from "@/components/SceneTimeline/SceneTimeline";
 import Toolbar from "@/components/Toolbar/Toolbar";
 
 const Editor = () => {
   return (
-    <div className="flex flex-col items-start justify-start gap-4 min-h-screen py-10">
+    <div className="flex flex-col items-center justify-between gap-6 h-full py-2">
       <Toolbar />
       <SceneFlow />
+      <SceneTimeline />
     </div>
   );
 };

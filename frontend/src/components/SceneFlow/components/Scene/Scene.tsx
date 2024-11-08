@@ -14,7 +14,7 @@ const Scene = ({ scene }: ComponentProps) => {
   };
 
   return (
-    <div className="border-2 rounded-xl flex flex-col">
+    <div className="rounded-xl flex flex-col w-full">
       <p>Scene {scene.number}</p>
       {scene.number !== 0 && (
         <button onClick={onDeleteScene}>delete scene</button>
