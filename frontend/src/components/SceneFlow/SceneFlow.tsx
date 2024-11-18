@@ -1,14 +1,13 @@
 import { useSceneContext } from "@/context/scene";
 import { useTransactionContext } from "@/context/transaction/transactionProvider";
-import { Player, PlayerRef } from "@remotion/player";
+import { PlayerRef } from "@remotion/player";
 import { useEffect, useRef } from "react";
-import Preview from "./components/Preview/Preview";
 import Scene from "./components/Scene/Scene";
 
 const SceneFlow = () => {
   const playerRef = useRef<PlayerRef>(null);
-  const { scenes, createScene } = useSceneContext();
-  const { setIsPlaying, duration, isPlaying } = useTransactionContext();
+  const { scenes } = useSceneContext();
+  const { setIsPlaying } = useTransactionContext();
 
   useEffect(() => {
     if (!playerRef.current) {
@@ -37,24 +36,17 @@ const SceneFlow = () => {
     setIsPlaying(false);
   };
 
-  const onCreateScene = () => {
-    createScene(scenes[scenes.length - 1].content);
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center w-full">
-      <div className="flex gap-10">
-        <div className="flex gap-10 overflow-x-scroll w-[800px]">
-          {scenes.map((scene) => (
-            <Scene scene={scene} key={scene.number} />
-          ))}
-        </div>
-        <button onClick={onCreateScene}>Create Scene</button>
+    <div className="flex h-full flex-col items-center justify-center w-full overflow-x-scroll">
+      <div className="flex items-center justify-center overflow-x-scroll">
+        {scenes.map((scene) => (
+          <Scene scene={scene} key={scene.number} />
+        ))}
       </div>
-      <button onClick={onPlay} disabled={isPlaying}>
+      {/* <button onClick={onPlay} disabled={isPlaying}>
         preview
-      </button>
-      <Player
+      </button> */}
+      {/* <Player
         ref={playerRef}
         component={Preview}
         durationInFrames={duration}
@@ -65,7 +57,7 @@ const SceneFlow = () => {
           width: 1280,
           height: 720,
         }}
-      />
+      /> */}
     </div>
   );
 };
