@@ -1,5 +1,6 @@
 import { useSceneContext } from "@/context/scene";
 import { ScrollShadow } from "@nextui-org/react";
+import { createRef, useEffect } from "react";
 import { FaMapMarker } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
@@ -12,6 +13,21 @@ const SceneTimeline = () => {
     currentSceneNumber,
     setCurrentSceneNumber,
   } = useSceneContext();
+
+  useEffect(() => {
+    if (!sceneRefs[currentSceneNumber].current) {
+      return;
+    }
+
+    sceneRefs[currentSceneNumber].current?.scrollIntoView({
+      inline: "center",
+      behavior: "smooth",
+    });
+  }, [currentSceneNumber]);
+
+  const sceneRefs = Object.fromEntries(
+    scenes.map((scene) => [scene.number, createRef<HTMLButtonElement>()]),
+  );
 
   const onCreateScene = () => {
     createScene(scenes[scenes.length - 1].content);
@@ -29,13 +45,14 @@ const SceneTimeline = () => {
       <ScrollShadow
         isEnabled={true}
         offset={0}
-        className="w-full pb-6 flex items-center justify-start gap-4 snap-x snap-mandatory px-[50%]"
+        className="w-full pb-6 flex items-center justify-start gap-4 snap-x snap-mandatory px-[50%] scroll-smooth"
         hideScrollBar={true}
         size={100}
         orientation="horizontal"
       >
         {scenes.map((scene) => (
           <button
+            ref={sceneRefs[scene.number]}
             onClick={() => setCurrentSceneNumber(scene.number)}
             key={scene.number}
             className={`${scene.number === currentSceneNumber ? "scale-100 bg-content2" : "scale-90 bg-content1"} transition border-small border-divider shadow-large w-28 h-16 grow-0 shrink-0 rounded-xl snap-always snap-center flex items-center justify-center`}
