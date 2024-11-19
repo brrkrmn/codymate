@@ -15,7 +15,7 @@ const SceneTimeline = () => {
   } = useSceneContext();
 
   useEffect(() => {
-    if (!sceneRefs[currentSceneNumber].current) {
+    if (!sceneRefs[currentSceneNumber]?.current) {
       return;
     }
 
@@ -31,6 +31,7 @@ const SceneTimeline = () => {
 
   const onCreateScene = () => {
     createScene(scenes[scenes.length - 1].content);
+    setCurrentSceneNumber(scenes.length);
   };
 
   return (
@@ -70,7 +71,7 @@ const SceneTimeline = () => {
       </ScrollShadow>
       <button
         onClick={deleteCurrentScene}
-        className="text-xl text-foreground-100 flex items-center justify-center transition hover:text-2xl hover:text-red-700"
+        className={`${scenes.length === 1 ? "hidden" : "flex"} text-xl text-foreground-100 items-center justify-center transition hover:text-2xl hover:text-red-700`}
       >
         <FaRegTrashCan />
       </button>

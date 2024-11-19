@@ -38,6 +38,10 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const deleteCurrentScene = () => {
+    if (scenes.length === 1) {
+      return;
+    }
+
     setScenes((prevScenes) =>
       prevScenes
         .filter((scene) => scene.number !== currentSceneNumber)
@@ -46,6 +50,12 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
             ? scene
             : { ...scene, number: scene.number - 1 },
         ),
+    );
+
+    setCurrentSceneNumber(
+      currentSceneNumber === scenes.length - 1
+        ? currentSceneNumber - 1
+        : currentSceneNumber,
     );
   };
 
