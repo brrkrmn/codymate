@@ -20,6 +20,7 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
       content: "",
     },
   ]);
+  const [currentSceneNumber, setCurrentSceneNumber] = useState(0);
 
   const createScene = (initialValue = "") => {
     setScenes((prevScenes) => [
@@ -36,12 +37,12 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const deleteScene = (sceneNumber: number) => {
+  const deleteCurrentScene = () => {
     setScenes((prevScenes) =>
       prevScenes
-        .filter((scene) => scene.number !== sceneNumber)
+        .filter((scene) => scene.number !== currentSceneNumber)
         .map((scene) =>
-          scene.number < sceneNumber
+          scene.number < currentSceneNumber
             ? scene
             : { ...scene, number: scene.number - 1 },
         ),
@@ -54,7 +55,9 @@ const SceneProvider = ({ children }: { children: React.ReactNode }) => {
         scenes,
         createScene,
         editScene,
-        deleteScene,
+        deleteCurrentScene,
+        currentSceneNumber,
+        setCurrentSceneNumber,
       }}
     >
       {children}
