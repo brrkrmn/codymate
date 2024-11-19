@@ -6,7 +6,7 @@ import Toolbar from "@/components/Toolbar/Toolbar";
 
 const Editor = () => {
   return (
-    <div className="flex flex-col items-center justify-between gap-6 h-full py-2">
+    <div className="flex flex-col items-center justify-between gap-6 min-h-[90vh] h-full py-2">
       <Toolbar />
       <SceneFlow />
       <SceneTimeline />

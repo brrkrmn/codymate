@@ -38,15 +38,19 @@ const CodeEditor = ({ scene }: { scene: Scene }) => {
   };
 
   return (
-    <div className={`w-full h-full p-10`}>
+    <div
+      className={`w-full h-full tablet:min-h-96 flex items-center justify-center`}
+    >
       <CodeMirror
+        minHeight="200px"
+        className="w-full h-full"
         value={value}
         onChange={onChange}
         autoFocus={true}
         onCreateEditor={onCreateEditor}
         placeholder={
           scene?.number === 0
-            ? "This will be the starting point of the video. Whatever written in this editor will not be animated. If you want to animate everything, create the first scene."
+            ? "This will be the starting point of the video."
             : ""
         }
         theme={themes[theme as keyof typeof themes] as Theme}

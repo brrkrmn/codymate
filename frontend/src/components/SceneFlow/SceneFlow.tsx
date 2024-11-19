@@ -1,13 +1,15 @@
+import { useEditorContext } from "@/context/editor";
 import { useSceneContext } from "@/context/scene";
 import { useTransactionContext } from "@/context/transaction/transactionProvider";
 import { PlayerRef } from "@remotion/player";
 import { useEffect, useRef } from "react";
-import Scene from "./components/Scene/Scene";
+import CodeEditor from "../CodeEditor/CodeEditor";
 
 const SceneFlow = () => {
   const playerRef = useRef<PlayerRef>(null);
-  const { scenes } = useSceneContext();
+  const { scenes, currentSceneNumber } = useSceneContext();
   const { setIsPlaying } = useTransactionContext();
+  const { background } = useEditorContext();
 
   useEffect(() => {
     if (!playerRef.current) {
@@ -37,27 +39,13 @@ const SceneFlow = () => {
   };
 
   return (
-    <div className="flex h-full flex-col items-center justify-center w-full overflow-x-scroll">
-      <div className="flex items-center justify-center overflow-x-scroll">
-        {scenes.map((scene) => (
-          <Scene scene={scene} key={scene.number} />
-        ))}
+    <div className="flex w-full h-full flex-col items-center justify-center overflow-x-scroll">
+      <div
+        style={{ background }}
+        className="px-4 py-8 tablet:p-10 shadow-large max-w-[800px] w-full rounded-xl flex items-center justify-center overflow-x-scroll"
+      >
+        <CodeEditor scene={scenes[currentSceneNumber]} />
       </div>
-      {/* <button onClick={onPlay} disabled={isPlaying}>
-        preview
-      </button> */}
-      {/* <Player
-        ref={playerRef}
-        component={Preview}
-        durationInFrames={duration}
-        compositionWidth={1920}
-        compositionHeight={1080}
-        fps={30}
-        style={{
-          width: 1280,
-          height: 720,
-        }}
-      /> */}
     </div>
   );
 };
